@@ -19,7 +19,7 @@ To sprawdzenie pomocnicze, nie opinia prawna ani uzgodnienie.
 | 1 | Strumień powietrza zewnętrznego | m³/h na osobę w biurach | WT, rozdział wentylacji, i norma powołana w załączniku nr 1; tekst z ISAP | 30 m³/h·os. (9600 / 320) | zestawienie central P01 | DO WERYFIKACJI | odczytać wymaganie z tekstu jednolitego WT w ISAP |
 | 2 | Odzysk ciepła | wymagana sprawność odzysku | WT, załącznik nr 2 | 78 % (sucha) | karta AHU-1 | DO WERYFIKACJI | odczytać wartość i warunki z załącznika nr 2 |
 | 3 | Ekoprojekt central | SFPint i sprawność odzysku | Rozp. (UE) 1253/2014, EUR-Lex | deklaracja producenta | karta AHU-1 | OK | producent deklaruje zgodność z wymaganiami etapu 2018 |
-| 4 | Klapy ppoż. | zamknięcia na przejściach przez oddzielenia ppoż. | WT, dział VI; PN-EN 15650 (wyrób) | brak klapy, przejście przez ścianę K2 | rzut 3. piętra P02 | FAIL | dodać klapę EIS 120 lub zmienić trasę; potwierdzić z rzeczoznawcą ppoż. |
+| 4 | Klapy ppoż. | zamknięcia na przejściach przez oddzielenia ppoż. | WT, dział VI; PN-EN 15650 (wyrób) | brak klapy, przejście przez ścianę K2 | rzut 3. piętra P02 | FAIL | dodać klapę o klasie ściany lub zmienić trasę; potwierdzić z rzeczoznawcą ppoż. |
 | 5 | Izolacja przewodów | grubość izolacji przewodów | WT, załącznik nr 2 | 50 mm wełny, przewody zewnętrzne | opis techniczny | DO WERYFIKACJI | odczytać tabelę z załącznika nr 2 |
 | 6 | Czerpnia i wyrzutnia | odległości i usytuowanie | WT, rozdział wentylacji | czerpnia 10 m od wyrzutni | rzut dachu P02 | OK | odległość potwierdzona na rzucie |
 | 7 | Garaż | wentylacja garażu | WT | nie dotyczy zakresu | | NIE DOTYCZY | garaż w osobnym sprawdzeniu |
