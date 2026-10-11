@@ -1,0 +1,23 @@
+{
+  "skill_name": "code-compliance",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Sprawdź, czy wentylacja w naszym biurowcu spełnia przepisy. Centrala 9600 m³/h na 320 osób, odzysk ciepła obrotowy 78%.",
+      "expected_output": "Reads PROJECT.md (pl). Establishes which WT version applies from the permit application date before checking. Builds a checklist from hvac.md compliance topics (ventilation rates, heat recovery, SFP/ecodesign, fire dampers, insulation, acoustics). Takes legal requirements only from gov.pl sources (ISAP), cites act and paragraph, marks TO VERIFY where text not read. Computes 30 m3/h per person design value and compares with the source value only if read. Output in Polish with the 4 result values.",
+      "files": ["../project-brief/examples/PROJECT.example.md"]
+    },
+    {
+      "id": 2,
+      "prompt": "Which UK regulations apply to a new mechanical ventilation system with heat recovery in a block of flats in England?",
+      "expected_output": "Uses uk.md; cites Building Regulations 2010 and the relevant Approved Documents (F ventilation, L energy, B fire) from gov.uk / legislation.gov.uk only. Asks for building classification details and scope before a full check. Does not quote BS EN text. Notes uk.md is still a skeleton where relevant and marks items TO VERIFY.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "A reviewer says our fire dampers are missing where ducts cross the corridor walls. Check if they are right.",
+      "expected_output": "Asks for or reads fire separation data (which walls are fire-rated, classification) and the drawings. Builds a short checklist on fire dampers at fire separations, citing the jurisdiction's fire regulation from official sources and EN 15650/EN 1366-2 by number only. Flags the case for the fire safety expert if disputed. Gives result per crossing.",
+      "files": []
+    }
+  ]
+}

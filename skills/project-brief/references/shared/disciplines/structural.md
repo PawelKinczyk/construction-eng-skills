@@ -24,6 +24,10 @@ Calculations used in this discipline and the script that runs each one.
 
 Mistakes to check for in designs and selections.
 
+## Compliance topics
+
+Checklist seed for `code-compliance`. To be filled.
+
 ## Standards by topic
 
 Topic to standard map. Country-specific references go in the jurisdiction files.

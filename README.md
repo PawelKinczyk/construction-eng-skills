@@ -3,7 +3,7 @@
 Agent Skills for construction engineers, for design and contracting.
 The skills work with Claude Code, claude.ai (web, desktop, mobile) and other agents that read the open Agent Skills format (`SKILL.md`).
 
-> Status: early development (v0.1). First skills in beta: `project-brief`, `project-standards`. See [PLAN.md](PLAN.md).
+> Status: early development (v0.1). Skills in beta: `project-brief`, `project-standards`, `equipment-selection` (HVAC), `code-compliance`. See [PLAN.md](PLAN.md).
 
 ## Skills
 
@@ -11,8 +11,8 @@ The skills work with Claude Code, claude.ai (web, desktop, mobile) and other age
 |---|---|---|---|
 | Context | `project-brief` | Interviews the engineer and builds `PROJECT.md` | beta |
 | Context | `project-standards` | Checks naming, layers, BEP and project rules | beta |
-| Engineering | `equipment-selection` | Sizes and selects equipment, with sources and alternatives | planned |
-| Engineering | `code-compliance` | Checks a design against law and standards, with clause references | planned |
+| Engineering | `equipment-selection` | Sizes and selects equipment, with sources and alternatives | beta (HVAC) |
+| Engineering | `code-compliance` | Checks a design against law and standards, with clause references | beta |
 | Engineering | `cost-estimate` | Quantity takeoff and unit rates from local price sources | planned |
 | Engineering | `bid-review` | Analyses tender documents: scope, risks, questions, offer | planned |
 | Engineering | `project-correspondence` | Letters, RFIs, notices, coordination issues | planned |

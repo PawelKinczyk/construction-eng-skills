@@ -1,0 +1,23 @@
+{
+  "skill_name": "equipment-selection",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Dobierz pompę obiegową c.o. dla obiegu grzejnikowego 120 kW, 70/50, najdłuższy obieg ok. 120 m rury DN50.",
+      "expected_output": "Uses hvac_calc.py water-flow (about 5.25 m3/h) and pipe-dp. Asks for or states assumptions for the heat source, control valve, terminal and meter pressure drops. Applies one margin with reason. Does not invent a pump model; gives a specification or asks for data sheets. Includes ecodesign EEI requirement with EUR-Lex source. Output in Polish in the selection sheet format.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I need an AHU for an open-plan office: 2400 m3/h supply and extract, rotary heat recovery, ESP 250 Pa each side. Check what SFP I can expect and what else you need from me.",
+      "expected_output": "Asks for missing inputs from the AHU checklist (location, filter classes, coils, design outdoor conditions, acoustic limits). Uses fan-power with stated assumed efficiency and explains SFP vs SFPint (Regulation 1253/2014). Does not claim compliance without manufacturer SFPint. Lists items to verify.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Select a pump for 8 m3/h at 12 m head, 30% propylene glycol, 7/12 C chilled water.",
+      "expected_output": "Notes glycol is not in the water table and asks for or cites glycol data (density, viscosity, cp) from a manufacturer; uses --rho/--cp/--mu-mpas overrides. Warns about glycol effect on coils and head. Does not stack margins. Gives alternatives and a verification list.",
+      "files": []
+    }
+  ]
+}
