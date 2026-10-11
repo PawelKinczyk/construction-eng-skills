@@ -1,0 +1,20 @@
+{
+  "name": "construction-eng-skills",
+  "owner": {
+    "name": "Paweł Kinczyk",
+    "url": "https://github.com/PawelKinczyk"
+  },
+  "metadata": {
+    "description": "Agent Skills for construction engineers (design and contracting).",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "construction-eng-skills",
+      "source": "./",
+      "description": "Equipment selection, code compliance, cost estimates, bids, correspondence, drawings, DWG/DXF, IFC and site work.",
+      "version": "0.1.0",
+      "license": "MIT"
+    }
+  ]
+}

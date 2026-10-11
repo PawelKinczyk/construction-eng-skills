@@ -1,0 +1,13 @@
+{
+  "name": "construction-eng-skills",
+  "version": "0.1.0",
+  "description": "Agent Skills for construction engineers: equipment selection, code compliance, cost estimates, bids, correspondence, drawings, DWG/DXF, IFC and site work.",
+  "author": {
+    "name": "Paweł Kinczyk",
+    "url": "https://github.com/PawelKinczyk"
+  },
+  "homepage": "https://github.com/PawelKinczyk/construction-eng-skills",
+  "repository": "https://github.com/PawelKinczyk/construction-eng-skills",
+  "license": "MIT",
+  "keywords": ["construction", "engineering", "mep", "bim", "hvac", "aec"]
+}
