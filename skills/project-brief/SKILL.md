@@ -75,6 +75,7 @@ Allowed values for the YAML block are in the template comments. If the jurisdict
 
 - Every pre-filled value has a source file, or the user confirmed it.
 - Jurisdiction-specific checks from the jurisdiction file. Example for Poland: which WT version applies, based on the permit application date.
+- Legal facts (which regulation applies, transition rules) come only from the official government sources in the jurisdiction file. Never from news, blogs or vendor pages.
 - Paths in the document map exist (when you have file access).
 - No guessed facts. Unknown goes to "Open questions".
 

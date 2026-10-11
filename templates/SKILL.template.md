@@ -28,6 +28,7 @@ The procedure, as numbered steps. Use `scripts/` for every calculation and show 
 - Check results against sources (standards, law, product data, project documents).
 - Cite every source: document, clause or page, edition or date.
 - Never invent clause numbers, prices or product data. Unknown means "to verify".
+- Law and regulations: check and cite only the official government sources listed in the jurisdiction file ("Official legal sources"). Never news, blogs or vendor pages.
 
 ## 5. Output
 

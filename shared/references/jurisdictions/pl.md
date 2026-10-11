@@ -18,7 +18,7 @@ Laws change often. Always check the current consolidated text (tekst jednolity) 
    - Prawo energetyczne, Prawo wodne, ustawa o zbiorowym zaopatrzeniu w wodę i zbiorowym odprowadzaniu ścieków (utility connections).
 3. Regulations (rozporządzenia). Main ones:
    - **Warunki techniczne (WT)**: Rozporządzenie Ministra Infrastruktury z 12 kwietnia 2002 r. w sprawie warunków technicznych, jakim powinny odpowiadać budynki i ich usytuowanie. Amended many times. "WT 2021" means the energy requirements in force from 1 January 2021.
-   - **New WT (status 2026-10):** a new WT regulation was planned to apply from 20 September 2026, with an 18-month transition period in which the old WT may still be used. In September 2026 the press reported that the new regulation had not been issued yet. **Always ask or check which WT applies to the project.** It depends on the date of the permit application and on the transition rules.
+   - **New WT (status 2026-10).** Source: Ministry of Development and Technology announcement of 18.09.2026 on gov.pl. The new WT regulation is not adopted yet; work on the draft continues (legislacja.gov.pl). Under the act of 31 July 2026 (Dz.U. poz. 1161), for 18 months from 20 September 2026 the existing technical regulations still apply to construction works, and to maintenance and use of residential buildings. The investor may file a declaration that the design follows the existing rules. **Always check on gov.pl which WT applies to the project.** It depends on the application date and on the transition rules in the act.
    - Ochrona przeciwpożarowa budynków: Rozporządzenie MSWiA z 7 czerwca 2010 r. w sprawie ochrony przeciwpożarowej budynków, innych obiektów budowlanych i terenów.
    - Przeciwpożarowe zaopatrzenie w wodę i drogi pożarowe: Rozporządzenie MSWiA z 24 lipca 2009 r.
    - Zakres i forma projektu budowlanego: Rozporządzenie MRPiT z 11 września 2020 r.
@@ -31,17 +31,31 @@ Laws change often. Always check the current consolidated text (tekst jednolity) 
 
 Conflict rule: an act wins over a regulation. A regulation wins over a standard. A standard referenced by WT is mandatory in the referenced scope. The contract cannot lower legal requirements.
 
-## Where to find texts
+## Official legal sources
+
+**Law only from official government sources.** Use only the domains below to read, check or cite law, regulations and official interpretations. Never use news sites, blogs, law firm articles, training providers or vendor pages as a legal source. When a web search tool supports a domain filter, set it to these domains. If the official source cannot be reached, mark the item "to verify".
+
+Allowed domains: `gov.pl` and its subdomains.
+
+| What | Where |
+|---|---|
+| Acts and regulations, consolidated texts | ISAP, isap.sejm.gov.pl |
+| Official journal (Dziennik Ustaw) | dziennikustaw.gov.pl |
+| Draft regulations and legislative status | legislacja.gov.pl (also legislacja.rcl.gov.pl) |
+| Ministry announcements (building law, WT) | gov.pl/web/rozwoj-technologia |
+| Building supervision, interpretations | gunb.gov.pl |
+| Investor guide to building law | budowlaneabc.gov.pl |
+| Fire service | gov.pl/web/kgpsp |
+
+## Standards and product data (not law)
+
+These are not legal sources. Use them for standards and product approvals only.
 
 | What | Where | Cost |
 |---|---|---|
-| Acts and regulations | ISAP, isap.sejm.gov.pl (consolidated texts) | free |
-| Official journal | dziennikustaw.gov.pl | free |
-| Draft regulations | legislacja.gov.pl (Rządowe Centrum Legislacji) | free |
 | Polish Standards | PKN, pkn.pl (catalogue free, texts paid; reading room free) | paid |
 | National technical assessments (KOT) | ITB, itb.pl | free search |
 | Fire product certificates | CNBOP-PIB, cnbop.pl | free search |
-| Interpretations of building law | GUNB, gunb.gov.pl | free |
 
 ## Standards map by topic
 

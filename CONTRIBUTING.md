@@ -17,6 +17,7 @@ Run `sync` and `check` before every commit.
 ## Add a jurisdiction
 
 1. Copy an existing file in `shared/references/jurisdictions/` and keep all section headings.
+   List the country's official government domains under "Official legal sources".
 2. Fill in each section. Link official sources.
 3. Run `python tools/build.py sync`.
 
@@ -38,4 +39,5 @@ Run `sync` and `check` before every commit.
 - Never copy text from paid or copyrighted standards. Give the number, clause and source.
 - Never invent clause numbers, prices or product data.
 - Cite official sources with edition or date.
+- Law and regulations: only official government sources (for example `gov.pl`, `europa.eu`, `gov.uk`, `.gov`). Each jurisdiction file lists its allowed domains under "Official legal sources". Never cite news, blogs, law firms or vendors as a legal source.
 - Write skills in plain, simple English: short sentences, one instruction per sentence.

@@ -44,15 +44,25 @@ Ecodesign implementing regulations often used in equipment selection:
 
 Several of these regulations are under revision. Check the current version on EUR-Lex.
 
-## Where to find texts
+## Official legal sources
+
+**Law only from official government sources.** Use only the domains below to read, check or cite law, regulations and official interpretations. Never use news sites, blogs, law firm articles, training providers or vendor pages as a legal source. When a web search tool supports a domain filter, set it to these domains. If the official source cannot be reached, mark the item "to verify".
+
+Allowed domains: `europa.eu` and its subdomains (official EU institutions). For national law, use the member state file.
+
+| What | Where |
+|---|---|
+| EU law, consolidated texts | EUR-Lex, eur-lex.europa.eu |
+| Harmonised standards lists (OJ references) | European Commission, single-market-economy.ec.europa.eu |
+| Commission guidance (CPR, ecodesign, EPBD) | commission.europa.eu, energy.ec.europa.eu |
+| Product energy label database | EPREL, eprel.ec.europa.eu |
+
+## Standards and product data (not law)
 
 | What | Where | Cost |
 |---|---|---|
-| EU law, consolidated | EUR-Lex, eur-lex.europa.eu | free |
-| Harmonised standards lists | European Commission, single-market-economy.ec.europa.eu | free |
 | EN standards | national standards bodies (PKN, BSI, DIN, AFNOR...) | paid |
 | Standards catalogue | CEN and CENELEC, cencenelec.eu | free search |
-| Product databases | EPREL (energy label), eprel.ec.europa.eu | free |
 
 ## Standards map by topic
 

@@ -13,10 +13,11 @@ Status: planning. Last update: 2026-10-11.
 2. **One method, many countries.** Country-specific law, standards and price sources live in `references/jurisdictions/*.md`.
 3. **Project context first.** Every skill reads `PROJECT.md` before working: jurisdiction, disciplines, role, units, document locations, project standards.
 4. **No copyrighted standard text.** Skills reference standards and laws by number and clause and say where to get them. The user supplies the text when needed.
-5. **Never invent.** No invented clause numbers, prices or product data. Unknown means "to verify", with a stated assumption.
-6. **Deterministic math in scripts.** Calculations run in `scripts/*.py`, not in the model's head. Exception: skills that must work on mobile (no Python).
-7. **No duplication of built-in tools.** Generic PDF/DOCX/XLSX handling is left to Claude's built-in skills. Our skills add construction-specific workflows on top.
-8. **Agent-agnostic.** Follow the open Agent Skills format (`SKILL.md` + frontmatter), so skills work in Claude Code, claude.ai (web, desktop, mobile), Codex and Hermes.
+5. **Law from government sources only.** Each jurisdiction file lists the official government domains for law and regulations. News, blogs and vendor pages are never a legal source.
+6. **Never invent.** No invented clause numbers, prices or product data. Unknown means "to verify", with a stated assumption.
+7. **Deterministic math in scripts.** Calculations run in `scripts/*.py`, not in the model's head. Exception: skills that must work on mobile (no Python).
+8. **No duplication of built-in tools.** Generic PDF/DOCX/XLSX handling is left to Claude's built-in skills. Our skills add construction-specific workflows on top.
+9. **Agent-agnostic.** Follow the open Agent Skills format (`SKILL.md` + frontmatter), so skills work in Claude Code, claude.ai (web, desktop, mobile), Codex and Hermes.
 
 ---
 
@@ -42,7 +43,7 @@ Status: planning. Last update: 2026-10-11.
 | `us.md` | IBC, IMC, IPC, NFPA 70/13/72, ASHRAE 90.1/62.1, state adoption note; price source RSMeans |
 | `uk.md` | Building Regulations and Approved Documents, BS EN, CIBSE guides; price sources SPON's, BCIS |
 
-Each jurisdiction file has the same sections: legal hierarchy, where to find texts, standards map by topic, approvals/permits, price sources, units and conventions.
+Each jurisdiction file has the same sections: legal hierarchy, official legal sources (government domains only), standards and product data, standards map by topic, approvals/permits, price sources, units and conventions.
 
 ---
 
