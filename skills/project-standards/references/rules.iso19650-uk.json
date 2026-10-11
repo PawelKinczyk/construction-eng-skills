@@ -1,0 +1,15 @@
+{
+  "name": "ISO 19650 file naming, UK National Annex codes",
+  "separator": "-",
+  "case": "upper",
+  "strip_extension": true,
+  "fields": [
+    {"name": "project", "pattern": "^[A-Z0-9]{2,6}$"},
+    {"name": "originator", "pattern": "^[A-Z0-9]{3,6}$"},
+    {"name": "volume", "pattern": "^[A-Z0-9]{1,2}$"},
+    {"name": "level", "pattern": "^[A-Z0-9]{2}$"},
+    {"name": "type", "allowed": ["AF", "BQ", "CA", "CM", "CO", "CP", "CR", "DB", "DR", "FN", "HS", "IE", "M2", "M3", "MI", "MR", "MS", "PP", "PR", "RD", "RI", "RP", "SA", "SH", "SN", "SP", "SU", "VS"]},
+    {"name": "role", "allowed": ["A", "B", "C", "D", "E", "F", "G", "H", "I", "K", "L", "M", "P", "Q", "S", "T", "W", "X", "Y", "Z"]},
+    {"name": "number", "pattern": "^\\d{4,6}$"}
+  ]
+}

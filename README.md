@@ -3,14 +3,14 @@
 Agent Skills for construction engineers, for design and contracting.
 The skills work with Claude Code, claude.ai (web, desktop, mobile) and other agents that read the open Agent Skills format (`SKILL.md`).
 
-> Status: early development (v0.1). No skills are ready yet. See [PLAN.md](PLAN.md).
+> Status: early development (v0.1). First skills in beta: `project-brief`, `project-standards`. See [PLAN.md](PLAN.md).
 
 ## Skills
 
 | Group | Skill | What it does | Status |
 |---|---|---|---|
-| Context | `project-brief` | Interviews the engineer and builds `PROJECT.md` | planned |
-| Context | `project-standards` | Checks naming, layers, BEP and project rules | planned |
+| Context | `project-brief` | Interviews the engineer and builds `PROJECT.md` | beta |
+| Context | `project-standards` | Checks naming, layers, BEP and project rules | beta |
 | Engineering | `equipment-selection` | Sizes and selects equipment, with sources and alternatives | planned |
 | Engineering | `code-compliance` | Checks a design against law and standards, with clause references | planned |
 | Engineering | `cost-estimate` | Quantity takeoff and unit rates from local price sources | planned |
@@ -46,7 +46,7 @@ Copy the folder `skills/<skill-name>/` into the agent's skills directory.
 
 ## Quick start
 
-1. Copy [templates/PROJECT.md](templates/PROJECT.md) into your project folder, or ask the agent: "set up a project brief".
+1. Copy [shared/references/PROJECT.template.md](shared/references/PROJECT.template.md) into your project folder, or ask the agent: "set up a project brief".
 2. Fill in jurisdiction, disciplines, role and deliverable language.
 3. Work as usual. Every skill reads `PROJECT.md` first.
 

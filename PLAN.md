@@ -93,12 +93,12 @@ construction-eng-skills/
     plugin.json                 # Claude Code plugin manifest
     marketplace.json            # install via /plugin marketplace add
   templates/
-    PROJECT.md                  # empty project context template
     SKILL.template.md           # standard skill layout
   shared/
     references/
       disciplines/*.md          # single source of truth
       jurisdictions/*.md
+      PROJECT.template.md       # project context template, shipped with every skill
   skills/
     <skill-name>/
       SKILL.md
@@ -134,7 +134,7 @@ Rules: `SKILL.md` under 500 lines; details go to `references/`. Frontmatter `des
 
 ### Phase 0: foundation
 - `git init`, README, LICENSE, CONTRIBUTING, `.gitignore`
-- `templates/PROJECT.md`, `templates/SKILL.template.md`
+- `shared/references/PROJECT.template.md`, `templates/SKILL.template.md`
 - `shared/references/` skeleton: all 6 discipline files and 4 jurisdiction files with section headings
 - `.claude-plugin/plugin.json` and `marketplace.json`
 - `tools/build.py` (sync refs, validate frontmatter, build zips)

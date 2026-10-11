@@ -1,0 +1,23 @@
+{
+  "skill_name": "project-standards",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Check if the files in examples/sample-files.txt follow our naming standard (ISO 19650, project code ZB2, originator PKS).",
+      "expected_output": "Uses ISO 19650 UK NA rules with project ZB2 and originator PKS, runs check_names.py on the list, reports 8 checked with failures for lower case, underscores, bad type code 'XX', missing number and wrong role code. Proposes fixes. Does not invent a missing sequence number.",
+      "files": ["examples/sample-files.txt"]
+    },
+    {
+      "id": 2,
+      "prompt": "Nasz BEP mówi: nazwa pliku = KodProjektu_Branża_Typ_Numer, branże A, K, S, E, typy RYS, OPS, ZES, numer 3 cyfry. Zrób z tego reguły i sprawdź listę: ABC_S_RYS_001.pdf, ABC_s_rys_2.pdf, ABC_M_RYS_003.pdf",
+      "expected_output": "Builds a rules JSON with separator '_', case upper, fields project, role (A,K,S,E), type (RYS,OPS,ZES), number ^\\d{3}$. Shows rules table for confirmation. Results: first OK; second fails on case and number format, fix to ABC_S_RYS_002.pdf is listed as 'to confirm'; third fails on role M not allowed. Answers in Polish.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Prepare a rename map for the failing files so I can fix them before the submission.",
+      "expected_output": "Produces rename-map.csv with old_name,new_name only for names whose fix is certain, lists the rest under 'To confirm', re-checks proposed names pass, does not rename anything without confirmation.",
+      "files": ["examples/sample-files.txt"]
+    }
+  ]
+}
