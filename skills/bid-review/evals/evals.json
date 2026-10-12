@@ -1,0 +1,29 @@
+{
+  "skill_name": "bid-review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Przejrzyj dokumenty przetargowe na modernizację instalacji sanitarnej w szpitalu i powiedz, czy składać ofertę. Umowa to wzór zamawiającego.",
+      "expected_output": "Reads PROJECT.md and the jurisdiction file (Polish public procurement regime). Works from the document set, lists the documents not received, and marks conclusions provisional. Builds the scope review with gaps and interfaces, a risk register where every risk cites a document and a clause, an RFI list with one question per row and what each answer changes, a deviations register, and a price build-up using bid_calc.py price. Names the contract clauses that shift risk (liquidated damages cap, warranty, re-measure) without quoting from memory. Recommends bid or no-bid and leaves the decision to the user. Output in Polish.",
+      "files": ["../project-brief/examples/PROJECT.example.md"]
+    },
+    {
+      "id": 2,
+      "prompt": "We have 12 risks in the register with probabilities and impacts. What risk allowance should go into the bid?",
+      "expected_output": "Uses bid_calc.py risk on the register, reports the expected value sum, ranks by exposure, and lists the risks without a probability or impact as NOT included in the sum, requiring quantification or a qualification. Warns that an unquantified worry must not be added to the price as a round number, and that a risk the client refuses to answer stays a risk. States that the allowance is not a contingency for unknown scope.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Payment is 60 days after certification, 10% retention released after 12 months, no advance. How much does that cost us on a 5 mln contract over 14 months?",
+      "expected_output": "Uses bid_calc.py cashflow with the stated terms, states the model assumptions (even spread, certification at month end, retention release) and asks for the cost ratio and the interest rate if not given. Reports peak funding need and financing cost, notes that financing cost is a cost and not a risk allowance, and warns about the working capital limit. Does not invent an interest rate without saying where it came from.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "The tender includes FIDIC conditions and the programme is 8 months for a scope we think needs 11. What do we flag?",
+      "expected_output": "Asks which FIDIC book and edition, and reads the actual conditions supplied instead of assuming the Red Book balance; checks the particular conditions for amendments to payment, extension of time grounds and testing. Flags the programme as a time risk with the contractual consequence, checks liquidated damages and their cap, and asks whether the programme is contractually binding or indicative. Puts the points into questions or qualifications, not into the offer as silent assumptions.",
+      "files": []
+    }
+  ]
+}

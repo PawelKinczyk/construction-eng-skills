@@ -1,0 +1,13 @@
+{
+  "note": "Example only. Probabilities, impacts and references are fictional and must not be reused. Real registers take every risk from a document and a clause, with the probability and impact agreed with the bid team.",
+  "currency": "PLN",
+  "risks": [
+    {"id": "R1", "name": "Warunki gruntowe gorsze niz w dokumentacji", "category": "site", "probability": 0.35, "impact": 420000, "contract": "wykonawca", "treatment": "wycena w ryzyku", "source": "SWZ zal. 3 (dokumentacja geotechniczna), umowa par. 4.2"},
+    {"id": "R2", "name": "Wydluzenie procedury uzgodnien z gestorem sieci", "category": "permits", "probability": 0.5, "impact": 180000, "contract": "zamawiajacy", "treatment": "pytanie do zamawiajacego", "source": "PFU p. 6.4, harmonogram kamieni milowych"},
+    {"id": "R3", "name": "Przedmiar zanizony, obmiar weryfikowany", "category": "scope", "probability": 0.6, "impact": 310000, "contract": "wykonawca", "treatment": "wycena w ryzyku", "source": "umowa par. 11.3, przedmiar poz. 2.14"},
+    {"id": "R4", "name": "Praca w czynnym obiekcie, ograniczenia godzinowe", "category": "programme", "probability": 0.8, "impact": 95000, "contract": "wykonawca", "treatment": "wycena w koszcie", "source": "PFU p. 3.2, harmonogram"},
+    {"id": "R5", "name": "Kary umowne bez limitu", "category": "contract", "probability": 0.15, "impact": 500000, "contract": "wykonawca", "treatment": "odstepstwo w ofercie", "source": "umowa par. 15.1 (brak limitu)"},
+    {"id": "R6", "name": "Okres gwarancji 60 miesiecy na urzadzenia", "category": "contract", "probability": 0.4, "impact": 120000, "contract": "wykonawca", "treatment": "potwierdzenie u producentow", "source": "SWZ p. 4.7"},
+    {"id": "R7", "name": "Termin skladania ofert po zmianie zakresu (corrigendum)", "category": "scope", "probability": null, "impact": null, "contract": "zamawiajacy", "treatment": "do skwantyfikowania", "source": "corrigendum nr 2 z 2026-09-28"}
+  ]
+}

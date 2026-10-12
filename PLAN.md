@@ -8,7 +8,7 @@ Status: phases 0-2 done, phase 3 in progress. Last update: 2026-10-12.
 Progress notes:
 - Phase 0, 1 done.
 - Phase 2 done: `equipment-selection` covers HVAC, plumbing, electrical and fire, each with a script, an example and evals; `code-compliance` has 5 evals and 4 examples (HVAC, plumbing, electrical, fire). Discipline files `hvac.md`, `plumbing.md`, `electrical.md`, `fire.md` are at v0.1 (structure full, values to review).
-- Phase 3 in progress: `cost-estimate` done (skill, estimate structure and takeoff references, script, example, 4 evals). `bid-review` and `project-correspondence` next.
+- Phase 3 in progress: `cost-estimate` and `bid-review` done (each with references, a script, an example and 4 evals). `project-correspondence` next.
 - `architecture.md` and `structural.md` remain skeletons; `uk.md` and `us.md` remain skeletons (phase 6).
 - Still open for a v1.0 pass: verified legal clause numbers (all jurisdiction references marked "to verify"), and real-project checks of the done criteria.
 
