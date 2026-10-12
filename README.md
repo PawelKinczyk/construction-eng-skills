@@ -16,7 +16,7 @@ The skills work with Claude Code, claude.ai (web, desktop, mobile) and other age
 | Engineering | `cost-estimate` | Quantity takeoff, unit rates and cost structure from local price sources | beta |
 | Engineering | `bid-review` | Analyses tender documents: scope, risks, questions, offer | beta |
 | Engineering | `project-correspondence` | Letters, RFIs, notices, coordination issues, register | beta |
-| Files | `drawing-review` | PDF drawing register, revision comparison, data extraction | planned |
+| Files | `drawing-review` | PDF drawing register, revision comparison, data extraction | beta |
 | Files | `dxf-dwg-analysis` | DXF/DWG layers, blocks, counts, revision comparison | planned |
 | Files | `ifc-analysis` | IFC quantities, property sets, IDS validation | planned |
 | Site | `meeting-minutes` | Minutes with decisions and actions | planned |
@@ -49,6 +49,22 @@ Copy the folder `skills/<skill-name>/` into the agent's skills directory.
 1. Copy [shared/references/PROJECT.template.md](shared/references/PROJECT.template.md) into your project folder, or ask the agent: "set up a project brief".
 2. Fill in jurisdiction, disciplines, role and deliverable language.
 3. Work as usual. Every skill reads `PROJECT.md` first.
+
+## Optional Python dependencies
+
+Most skills work with no Python at all. The file-reading skills use scripts for bulk work, with
+dependencies they declare and check themselves:
+
+```
+pip install -r tools/requirements-optional.txt
+```
+
+| Package | Used by | Without it |
+|---|---|---|
+| `pypdf` (or Poppler `pdftotext`) | `drawing-review` | the agent reads the PDFs directly; folder scans stop with an install hint |
+| `ezdxf` | `dxf-dwg-analysis` | DXF analysis is unavailable |
+| `ifcopenshell` | `ifc-analysis` | IFC analysis is unavailable |
+| ODA File Converter (external, not pip) | `dxf-dwg-analysis` | DWG files can only be analysed after conversion to DXF |
 
 ## Principles
 

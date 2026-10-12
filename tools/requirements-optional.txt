@@ -1,0 +1,18 @@
+# Optional Python dependencies for the file-reading skills.
+#
+# Nothing here is needed for the skills that work without scripts (project-brief,
+# project-standards, code-compliance, cost-estimate, bid-review, project-correspondence).
+# Each skill says in its SKILL.md what needs Python and what does not, and every script
+# prints a clear message instead of failing when its dependency is missing.
+#
+#   pip install -r tools/requirements-optional.txt
+
+pypdf>=4.0          # drawing-review:  PDF text and page size over a folder of drawings
+ezdxf>=1.1          # dxf-dwg-analysis: DXF layers, blocks, attributes, counts
+
+# ifcopenshell is not on PyPI under a stable name for every platform. Install it the way its
+# own documentation describes (pip install ifcopenshell, or the build from IfcOpenShell).
+ifcopenshell        # ifc-analysis:    IFC elements, quantities, property sets, IDS
+
+# Not a Python package: DWG conversion needs the ODA File Converter installed locally.
+# dxf-dwg-analysis documents how it is called; without it the skill works on DXF only.

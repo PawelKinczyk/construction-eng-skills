@@ -1,0 +1,29 @@
+{
+  "skill_name": "drawing-review",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Zrób rejestr arkuszy z tego pakietu PDF-ów (folder drawings) i sprawdź, czy metryki są kompletne.",
+      "expected_output": "Reads PROJECT.md for the project standard and register format. Uses scripts/pdf_register.py scan with a rules file for the project's title block, or reads the sheets directly for a small set. Builds the register from the title blocks, not from the file names, and reports missing fields, name mismatches and scanned sheets as findings. States which extractor was used and which sheets were read visually. Does not invent a sheet number or revision. Output in Polish in the register format.",
+      "files": ["../project-brief/examples/PROJECT.example.md"]
+    },
+    {
+      "id": 2,
+      "prompt": "Compare drawing issue rev B with rev C and tell me what changed.",
+      "expected_output": "Compares the two registers first (added, removed, revision or status changed, title changed) using pdf_register.py compare, then says plainly that a revision code shows that something changed, not what changed, and opens the changed sheets to report content changes with the areas not compared. States the comparison basis. Lists sheets that could not be compared.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Extract the equipment schedule from the mechanical drawings in this folder: all fan coil units with tags, sizes and airflows.",
+      "expected_output": "Reads the schedule from the sheets and gives each value with the sheet number, revision and location on the sheet. Uses pdf_register.py titles or direct reading rather than guessing; states that a scanned sheet was read visually and asks for confirmation of critical values. Does not add equipment or values that are not on the drawings, and routes any quantity or selection decision to cost-estimate or equipment-selection.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Is this package complete for a construction issue? The client's drawing list is attached.",
+      "expected_output": "Checks the package against the supplied drawing list: missing sheets by number and title, sheets at an earlier revision, superseded files, wrong status codes, file naming failures (deferring the standard to project-standards), and differences between the transmittal list and the folder. Refuses to judge completeness without the required list. Never renames or edits a file.",
+      "files": []
+    }
+  ]
+}

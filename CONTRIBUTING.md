@@ -34,6 +34,21 @@ Run `sync` and `check` before every commit.
 3. Add `evals/evals.json` with at least 3 realistic prompts and one example in `examples/`.
 4. Run `python tools/build.py sync` and `python tools/build.py check`.
 
+## Scripts and dependencies
+
+- Scripts use the Python standard library by default. A skill that needs more declares it in
+  `tools/requirements-optional.txt` and says in its `SKILL.md` what works without Python.
+- A script must never crash on a missing dependency: catch the import, print which package to
+  install, and exit with a clear code (see `skills/drawing-review/scripts/pdf_register.py`).
+- Every script prints its inputs, the formula and the result with units, and supports `--json`.
+- Never invent a value to fill a gap: an unsourced number goes out as an empty field or "to verify".
+
+## Line endings
+
+The repository uses LF (`* text=auto eol=lf` in `.gitattributes`). On Windows, `Path.write_text`
+and similar helpers write CRLF unless told otherwise: pass `newline="\n"`, or normalize before
+committing. `core.autocrlf` should be `false` in this repository.
+
 ## Content rules
 
 - Never copy text from paid or copyrighted standards. Give the number, clause and source.
