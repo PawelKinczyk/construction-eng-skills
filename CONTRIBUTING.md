@@ -43,6 +43,31 @@ Run `sync` and `check` before every commit.
 - Every script prints its inputs, the formula and the result with units, and supports `--json`.
 - Never invent a value to fill a gap: an unsourced number goes out as an empty field or "to verify".
 
+## Verify a skill
+
+Three levels, cheapest first. Run all three before a commit that changes a skill.
+
+```
+python tools/build.py check        # frontmatter, line limit, shared copies in sync
+python tools/verify_skills.py      # paths resolve, scripts compile and answer --help, imports
+                                   # are standard library or declared, evals and examples exist
+python tools/eval_runsheet.py      # regenerate tools/eval-checklist.md from the evals
+```
+
+Then run the prompts:
+
+- Quick pass: the prompt for that skill in `tools/smoke-prompts.md`, judged against its
+  "must show" column.
+- Full pass: the skill's prompts in `tools/eval-checklist.md`. Use it when the change touches the
+  frontmatter `description` (skill selection depends on it), the output format, a script's
+  arguments, or `shared/references/` (copied into every skill).
+- Only what changed: `python tools/eval_runsheet.py --since HEAD~1` lists the skills whose files
+  changed and prints their prompts.
+
+`tools/eval-checklist.md` is generated: change `evals/evals.json` and regenerate it, never edit
+the checklist by hand. A failing prompt is a defect in the skill, its references or its scripts;
+record it in the commit message or as an issue before changing anything else.
+
 ## Line endings
 
 The repository uses LF (`* text=auto eol=lf` in `.gitattributes`). On Windows, `Path.write_text`

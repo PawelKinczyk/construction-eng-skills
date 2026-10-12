@@ -73,6 +73,17 @@ pip install -r tools/requirements-optional.txt
 - No invented clauses, prices or product data. Unknown values are marked "to verify".
 - Calculations run in scripts, not in the model's head.
 
+## Checking the skills
+
+```
+python tools/build.py check        # structure and shared copies in sync
+python tools/verify_skills.py      # paths, scripts, evals, examples
+python tools/eval_runsheet.py      # regenerate the prompt checklist from the evals
+```
+
+`tools/smoke-prompts.md` holds one quick prompt per skill to run after a change;
+`tools/eval-checklist.md` (generated) holds all 57 eval prompts with the expected behaviour.
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).

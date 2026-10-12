@@ -12,7 +12,8 @@ ezdxf>=1.1          # dxf-dwg-analysis: DXF layers, blocks, attributes, counts
 
 # ifcopenshell is not on PyPI under a stable name for every platform. Install it the way its
 # own documentation describes (pip install ifcopenshell, or the build from IfcOpenShell).
-ifcopenshell        # ifc-analysis:    IFC elements, quantities, property sets, IDS
+ifcopenshell        # ifc-analysis:    IFC elements, quantities, property sets
+ifctester           # ifc-analysis:    IDS validation (ifc_report.py ids)
 
 # Not a Python package: DWG conversion needs the ODA File Converter installed locally.
 # dxf-dwg-analysis documents how it is called; without it the skill works on DXF only.
