@@ -1,0 +1,47 @@
+{
+  "note": "Example only. Every quantity, unit rate and percentage in this file is fictional and must not be reused. Real estimates take rates from the project's price source with a price level date.",
+  "currency": "PLN",
+  "price_level": "2026-09",
+  "vat_percent": 23,
+  "markups": {
+    "kp_percent": 66.0,
+    "z_percent": 11.0,
+    "kz_percent": 4.0,
+    "kp_source": "example only - contract not read",
+    "z_source": "example only - contract not read",
+    "kz_source": "example only - contract not read"
+  },
+  "groups": [
+    {
+      "code": "1",
+      "name": "Instalacja wody zimnej",
+      "lines": [
+        {"name": "Rurociag PP-R PN20 dn50", "qty": 120.0, "unit": "m", "unit_rate": 68.5, "kind": "m", "source": "example only"},
+        {"name": "Rurociag PP-R PN20 dn32", "qty": 210.0, "unit": "m", "unit_rate": 42.0, "kind": "m", "source": "example only"},
+        {"name": "Montaz rurociagow, robocizna", "qty": 330.0, "unit": "m", "unit_rate": 31.0, "kind": "r", "source": "example only"},
+        {"name": "Zawor odcinajacy dn32", "qty": 14.0, "unit": "szt", "unit_rate": 190.0, "kind": "m"}
+      ]
+    },
+    {
+      "code": "2",
+      "name": "Ciepla woda uzytkowa",
+      "lines": [
+        {"name": "Zasobnik c.w.u. 200 l z wezownica", "qty": 1.0, "unit": "kpl", "unit_rate": 7800.0, "kind": "m", "source": "example only"},
+        {"name": "Montaz zestawu c.w.u., robocizna", "qty": 1.0, "unit": "kpl", "unit_rate": 2600.0, "kind": "r", "source": "example only"},
+        {"name": "Grupa bezpieczenstwa c.w.u.", "qty": 1.0, "unit": "kpl", "unit_rate": 480.0, "kind": "m", "source": "example only"},
+        {"name": "Pompa cyrkulacyjna c.w.u.", "qty": 1.0, "unit": "szt", "unit_rate": 1450.0, "kind": "m", "source": "example only"},
+        {"name": "Izolacja przewodow c.w.u. 30 mm", "qty": 240.0, "unit": "m", "unit_rate": 24.0, "kind": "m", "source": "example only"}
+      ]
+    },
+    {
+      "code": "3",
+      "name": "Kanalizacja sanitarna",
+      "lines": [
+        {"name": "Przewod PVC-U dn110, kanalizacja", "qty": 85.0, "unit": "m", "unit_rate": 57.0, "kind": "m", "source": "example only"},
+        {"name": "Przewod PVC-U dn50", "qty": 130.0, "unit": "m", "unit_rate": 33.0, "kind": "m", "source": "example only"},
+        {"name": "Montaz kanalizacji, robocizna", "qty": 215.0, "unit": "m", "unit_rate": 28.0, "kind": "r", "source": "example only"},
+        {"name": "Wpust podlogowy dn50 z syfonem", "qty": 6.0, "unit": "szt", "unit_rate": 210.0, "kind": "m", "source": "example only"}
+      ]
+    }
+  ]
+}

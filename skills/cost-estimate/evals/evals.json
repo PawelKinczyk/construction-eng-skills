@@ -1,0 +1,29 @@
+{
+  "skill_name": "cost-estimate",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Zrób kosztorys instalacji wodno-kanalizacyjnych dla naszego budynku mieszkalnego. Przedmiar mam w arkuszu, ceny chcę z Sekocenbuda.",
+      "expected_output": "Reads PROJECT.md for jurisdiction, currency and deliverable language. Asks for the price level (quarter of the Sekocenbud edition), the markup percentages (Kp, Z, Kz) with their contractual source, the VAT rate basis, and the scope boundary. Builds the estimate with scripts/estimate_calc.py rollup, using the R/M/S kinds and the cascade Kp on (R+S), Z on (R+S+Kp), Kz on M. Marks any line without a source 'to verify'. Never invents a rate: if the Sekocenbud values are not supplied, leaves the quantities and asks for the prices. Output in Polish with net and gross, assumptions, sources, to verify.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Take off the wall areas for plastering on the attached floor plan: 6 rooms, walls 2.8 m high, windows 1.5 x 1.4 m and doors 0.9 x 2.1 m.",
+      "expected_output": "Uses references/takeoff-rules.md: plan area rule, deduction of openings above the stated threshold, net measures. States the drawing revision and that scaling from a drawing must be declared. Uses estimate_calc.py line for the value once rates are given and does not invent the unit rate; asks for the price source and price level. Lists the assumptions (room dimensions, opening sizes, whether reveal returns are measured).",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Compare the three contractor offers for our HVAC package and tell me which is cheapest. Offers are in three PDFs.",
+      "expected_output": "Normalises the scope against the client's BOQ positions before comparing, and says comparison on totals alone is wrong. Checks preliminaries, testing and commissioning, as-builts, warranties and provisional sums per offer. Reports per-line deviations (missing, extra, quantity differs, rate differs) and states each offer's price level and validity date. Does not pick a winner on price alone; names the commercial and scope differences. States that the contractually responsible person decides.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Our budget is 1.25 mln zł at 2026 prices but the works will be done in 2028. What should I allow for?",
+      "expected_output": "Uses estimate_calc.py escalation with a stated index and its source (not an invented rate), keeps escalation separate from contingency, and uses range for the estimate class. Asks whether the contract has an indexation clause. Marks the index value 'to verify' if no source is given, and does not present an index from memory as a fact.",
+      "files": []
+    }
+  ]
+}

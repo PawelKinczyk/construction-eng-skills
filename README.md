@@ -13,7 +13,7 @@ The skills work with Claude Code, claude.ai (web, desktop, mobile) and other age
 | Context | `project-standards` | Checks naming, layers, BEP and project rules | beta |
 | Engineering | `equipment-selection` | Sizes and selects equipment, with sources and alternatives | beta (HVAC, plumbing, electrical, fire) |
 | Engineering | `code-compliance` | Checks a design against law and standards, with clause references | beta |
-| Engineering | `cost-estimate` | Quantity takeoff and unit rates from local price sources | planned |
+| Engineering | `cost-estimate` | Quantity takeoff, unit rates and cost structure from local price sources | beta |
 | Engineering | `bid-review` | Analyses tender documents: scope, risks, questions, offer | planned |
 | Engineering | `project-correspondence` | Letters, RFIs, notices, coordination issues | planned |
 | Files | `drawing-review` | PDF drawing register, revision comparison, data extraction | planned |
