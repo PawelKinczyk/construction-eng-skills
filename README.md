@@ -21,7 +21,7 @@ The skills work with Claude Code, claude.ai (web, desktop, mobile) and other age
 | Files | `ifc-analysis` | IFC quantities, property sets, IDS validation | beta |
 | Site | `meeting-minutes` | Minutes with decisions and actions, plus the registers | beta |
 | Site | `site-visit` | Site visit report from photos and dictation, works on mobile | beta |
-| Site | `punch-list` | Defect register | planned |
+| Site | `punch-list` | Defect register with photos, owners and verification | beta |
 
 Disciplines: architecture and structural (general), HVAC, plumbing, electrical, fire protection.
 Jurisdictions: EU, Poland, United Kingdom, United States.

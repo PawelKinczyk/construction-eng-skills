@@ -1,0 +1,29 @@
+{
+  "skill_name": "punch-list",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Zrób listę usterek ze skrzydła A, poziom 0. Mam 9 zdjęć i notatki z przeglądu przed odbiorem.",
+      "expected_output": "Builds the register with punch_list.py: one item per defect with location, trade, element, a factual description, severity, photo reference, owner and an absolute deadline, and states the areas covered and not inspected. Reports items without a photo, without an owner and with an expired deadline as findings, and gives both the working view by trade and the handover view by room. Keeps design questions out of the list and routes them to the designer in writing. Output in Polish.",
+      "files": ["../project-brief/examples/PROJECT.example.md"]
+    },
+    {
+      "id": 2,
+      "prompt": "The contractor says item U-003 is done. Close it so we can hand over on Friday.",
+      "expected_output": "Refuses to close on a claim: explains that fixed is a claim and verified is a check, moves the item to fixed with the evidence, and requires a verifier other than the party who did the work, then a note naming the evidence before closing. Uses punch_list.py status and verify, and shows the guard messages. Says that open items at handover are normal and that hiding them costs credibility.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Add to the punch list: the client wants the valves moved 200 mm and the corridor painted a different colour.",
+      "expected_output": "Refuses both: a requested change and a cosmetic change of mind are not defects, and the valve move is a design question for the designer. Explains the distinction from references/punch-list-format.md, and routes them to project-correspondence as a change request, noting that adding them to the defect list puts them on the wrong contractual mechanism.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Give me the handover view: what is still open per room, and what is overdue by trade.",
+      "expected_output": "Exports the room view and lists the overdue items by trade with owner, due date and days late, plus items without photos and without an owner. States the walkthrough date, the areas inspected and the areas not inspected, and what acceptance with open items does and does not mean. Does not close or merge items to tidy the view.",
+      "files": ["examples/punch-list-example-pl.md"]
+    }
+  ]
+}
