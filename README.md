@@ -18,7 +18,7 @@ The skills work with Claude Code, claude.ai (web, desktop, mobile) and other age
 | Engineering | `project-correspondence` | Letters, RFIs, notices, coordination issues, register | beta |
 | Files | `drawing-review` | PDF drawing register, revision comparison, data extraction | beta |
 | Files | `dxf-dwg-analysis` | DXF/DWG layers, blocks, counts, revision comparison | beta (DXF) |
-| Files | `ifc-analysis` | IFC quantities, property sets, IDS validation | planned |
+| Files | `ifc-analysis` | IFC quantities, property sets, IDS validation | beta |
 | Site | `meeting-minutes` | Minutes with decisions and actions | planned |
 | Site | `site-visit` | Site visit report from photos and dictation, works on mobile | planned |
 | Site | `punch-list` | Defect register | planned |

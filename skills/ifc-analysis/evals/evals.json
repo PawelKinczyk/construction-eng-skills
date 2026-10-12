@@ -1,0 +1,29 @@
+{
+  "skill_name": "ifc-analysis",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Policz elementy w tym modelu IFC i podaj ilości: ściany, wentylacja, pompy. Sprawdź jednostki.",
+      "expected_output": "Runs ifc_report.py summary first and reports the schema, the units from IfcUnitAssignment and the storeys before any count, warning that a millimetre model makes quantities silent orders of magnitude off. Then counts occurrences by type and by storey (not type objects), states that IfcBuildingElementProxy and unassigned elements exist, and takes quantities from the named Qto set with the set and quantity name quoted. Reports elements with no IfcElementQuantity as missing, never as zero, and routes the numbers to cost-estimate or equipment-selection after a check against a schedule. Output in Polish.",
+      "files": ["../project-brief/examples/PROJECT.example.md"]
+    },
+    {
+      "id": 2,
+      "prompt": "Check this IFC against our client's requirements: every pump must have Pset_FlowMoverCommon and a rated power, every air terminal a nominal airflow.",
+      "expected_output": "Asks for the requirement as a list or an IDS file and runs ifc_report.py missing (or ids when ifctester is available), reporting findings grouped by rule as well as by element, including empty values as findings. Says plainly that a project property list is not an IDS result, and that a passed IDS is evidence about the model, not a statement that the design is compliant.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Compare IFC rev B with rev C and list what changed in the design.",
+      "expected_output": "Runs ifc_report.py compare on GUIDs and reports added, removed and changed properties, then warns that GUIDs are stable only when the authoring tool preserves them, so a re-export can show many removals plus additions with no design change - and reports the count of those pairs before calling anything a design change. States that the comparison is evidence about the model and that the design verdict is a project decision.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Export a schedule of all air terminals with tag, airflow and fire rating as a CSV for the client.",
+      "expected_output": "Runs ifc_report.py schedule with the requested properties, writes a new CSV (never edits the IFC), and states the model file, date, schema and units as the source. Reports empty or missing values as findings instead of leaving blanks, and notes that the schedule describes the model as received, not the current design. Deletes nothing and never claims the schedule is the design.",
+      "files": []
+    }
+  ]
+}
