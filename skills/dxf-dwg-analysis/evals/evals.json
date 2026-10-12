@@ -1,0 +1,29 @@
+{
+  "skill_name": "dxf-dwg-analysis",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Policz klimakonwektory i inne bloki w tym pliku DXF i sprawdź jednostki oraz zasięg.",
+      "expected_output": "Runs dxf_report.py summary first and reports units ($INSUNITS) and extents before any count, warning about stray entities that stretch the extents. Then blocks with --attributes for the counts and the attribute values, stating that inserts are counted (not symbols on a plot), that anonymous blocks are excluded, and quoting empty attribute values as findings. Does not take the count as an order quantity: routes it to equipment-selection or cost-estimate after confirmation. Output in Polish.",
+      "files": ["../project-brief/examples/PROJECT.example.md"]
+    },
+    {
+      "id": 2,
+      "prompt": "Compare rev B and rev C of the CAD file and tell me what changed.",
+      "expected_output": "Runs dxf_report.py diff, reports layers, entity counts, block counts, units and extents changes, and states plainly that a file comparison shows what changed in the file, not what it means - a count change can be a deleted construction line or a duplicated block. Requires a drawing reading for the design meaning and lists what was not compared (paper space, unresolved xrefs).",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I have a DWG. What is in it - how many sprinklers and which layers?",
+      "expected_output": "Says DWG is not read directly and explains the conversion with the ODA File Converter (copy, not the original; record the output format and converter version in the report), or asks for a DXF export. Then runs layers and blocks on the DXF. Never guesses at DWG content and never converts in place.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Check the layer names in this DXF against our project standard and list the layers with all their entities.",
+      "expected_output": "Runs dxf_report.py layers, reports each layer with state and entity count, and compares the names with the project standard, deferring the compliance verdict to project-standards. Reports entities on layers not in the standard, standard layers that are empty, and entities on layer 0, and states which layers were off or frozen. Does not rename or edit anything.",
+      "files": []
+    }
+  ]
+}

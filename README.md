@@ -17,7 +17,7 @@ The skills work with Claude Code, claude.ai (web, desktop, mobile) and other age
 | Engineering | `bid-review` | Analyses tender documents: scope, risks, questions, offer | beta |
 | Engineering | `project-correspondence` | Letters, RFIs, notices, coordination issues, register | beta |
 | Files | `drawing-review` | PDF drawing register, revision comparison, data extraction | beta |
-| Files | `dxf-dwg-analysis` | DXF/DWG layers, blocks, counts, revision comparison | planned |
+| Files | `dxf-dwg-analysis` | DXF/DWG layers, blocks, counts, revision comparison | beta (DXF) |
 | Files | `ifc-analysis` | IFC quantities, property sets, IDS validation | planned |
 | Site | `meeting-minutes` | Minutes with decisions and actions | planned |
 | Site | `site-visit` | Site visit report from photos and dictation, works on mobile | planned |
