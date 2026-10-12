@@ -39,8 +39,11 @@ Ecodesign implementing regulations often used in equipment selection:
 | (EU) No 547/2012 | water pumps |
 | (EC) No 641/2009 | glandless circulators |
 | (EU) No 813/2013 | space heaters and combination heaters (boilers, heat pumps) |
+| (EU) No 814/2013 | water heaters and hot water storage tanks |
 | (EU) 2016/2281 | air heating products, cooling products, high-temperature process chillers, fan coil units |
 | (EU) 2019/2020 | light sources |
+| (EU) 2019/1782 | external power supplies |
+| (EU) 2023/826 | standby and off-mode power consumption |
 
 Several of these regulations are under revision. Check the current version on EUR-Lex.
 
@@ -83,15 +86,19 @@ National adoptions carry a prefix: PN-EN, BS EN, DIN EN. Always cite the edition
 | Refrigeration safety | EN 378 |
 | Water supply inside buildings | EN 806 series |
 | Backflow protection | EN 1717 |
-| Gravity drainage inside buildings | EN 12056 series |
+| Gravity drainage inside buildings | EN 12056 series (-2 sanitary, -3 rainwater) |
 | Drains outside buildings | EN 752 |
+| DHW storage water heaters (unvented) | EN 12897 |
+| Corrosion of metallic materials in water | EN 12502 series |
 | Sprinklers | EN 12845 |
 | Fire hose systems | EN 671 |
 | Fire detection and alarm | EN 54 series (products); CEN/TS 54-14 (design) |
 | Smoke and heat control | EN 12101 series |
 | Fire classification | EN 13501-1 (reaction to fire); EN 13501-2 (resistance) |
 | Fire dampers | EN 15650 (product); EN 1366-2 (test) |
-| Low-voltage installations | HD 60364 series |
+| Low-voltage installations | HD 60364 series (national adoption: PN-HD 60364, BS HD 60364) |
+| Low-voltage PV installations | HD 60364-7-712 |
+| Low-voltage EV charging installations | HD 60364-7-722 |
 | Switchgear assemblies | EN 61439 series |
 | Lightning protection | EN 62305 series |
 | Workplace lighting | EN 12464-1 |

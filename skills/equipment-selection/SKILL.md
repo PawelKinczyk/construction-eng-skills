@@ -1,6 +1,6 @@
 ---
 name: equipment-selection
-description: Size and select building services equipment - pumps, fans, air handling units (AHU), heat pumps, boilers, chillers, VRF, fan coils, heat exchangers, expansion vessels, and other MEP equipment. Collects design inputs, calculates duty points with scripts, applies stated margins, checks manufacturer data, gives alternatives and a verification list. Use when the user asks to select, size, dimension, compare or check equipment, asks "what pump/fan/AHU do I need", or gives a duty point and wants a product.
+description: Size and select building services equipment - pumps, fans, air handling units (AHU), heat pumps, boilers, chillers, VRF, fan coils, heat exchangers, expansion vessels, DHW cylinders and water heaters, cold water supply, drainage stacks and rainwater systems, cables and voltage drop, switchboards, protective devices, standby batteries, sprinkler and fire water systems, smoke exhaust, and other MEP equipment. Collects design inputs, calculates duty points with scripts, applies stated margins, checks manufacturer data, gives alternatives and a verification list. Use when the user asks to select, size, dimension, compare or check equipment, asks "what pump/fan/AHU do I need", or gives a duty point and wants a product.
 ---
 
 # Equipment selection
@@ -29,6 +29,9 @@ Do not start calculating when a value that drives the size is unknown (load, flo
 
 1. **Duty point.** Calculate with the scripts. Show formula, inputs, result and units.
    - HVAC: `python scripts/hvac_calc.py <command> ...` (commands listed in `hvac.md`, "Typical calculations").
+   - Plumbing: `python scripts/plumbing_calc.py <command> ...` (commands listed in `plumbing.md`). Pipe pressure drop, pump power and water flow from load use `hvac_calc.py`.
+   - Electrical: `python scripts/electrical_calc.py <command> ...` (commands listed in `electrical.md`).
+   - Fire: `python scripts/fire_calc.py <command> ...` (commands listed in `fire.md`). Fire pump head and pipe pressure drop use `hvac_calc.py`.
    - Pressure drop of the index circuit: sum the segments, components and control valve. Show a table.
 2. **Margins.** Apply the margins from the discipline file once, at one level. State value and reason. Never stack margins.
 3. **Requirements.** List what the unit must meet besides the duty point: efficiency class, ecodesign limits, refrigerant and F-gas rules, noise, dimensions, weight, electrical supply, controls protocol, client brand list.

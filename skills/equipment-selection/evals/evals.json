@@ -18,6 +18,48 @@
       "prompt": "Select a pump for 8 m3/h at 12 m head, 30% propylene glycol, 7/12 C chilled water.",
       "expected_output": "Notes glycol is not in the water table and asks for or cites glycol data (density, viscosity, cp) from a manufacturer; uses --rho/--cp/--mu-mpas overrides. Warns about glycol effect on coils and head. Does not stack margins. Gives alternatives and a verification list.",
       "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Dobierz zasobnik c.w.u. dla 10 mieszkań (25 osób). Szczyt: 400 l wody 45 C w 15 min, kocioł 30 kW na c.w.u., woda zimna 10 C.",
+      "expected_output": "Uses plumbing_calc.py dhw-mix and dhw-store to get the volume at store temperature and the reheat during the draw (about 280 l and 129 l, storage about 151 l). Does not add a percentage margin. States store 60 C and distribution 55 C, and marks national hygiene rules to verify. Requires manufacturer DHW performance (PN-EN 12897), not volume alone. Cites ecodesign Regulation (EU) 814/2013 with EUR-Lex. Notes the average draw power is above the boiler output and says the draw profile is the limit. Output in Polish in the selection sheet format.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "Size the cold water supply for a small hotel: 60 washbasins, 40 WCs, 30 showers. Tell me what else you need.",
+      "expected_output": "Uses plumbing_calc.py peak-flow and asks for the simultaneity factor from the sizing method (EN 806-3 or the national method) instead of leaving the default 1.0. Warns the typical fixture flows must be verified against EN 806-3. Asks for the supply pressure and water meter loss, PRV need, pipe material and corrosion risk, and the backflow protection class per EN 1717. Sizes pipes with hvac_calc.py pipe-dp at a stated velocity and sums the index circuit. No invented product model.",
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "Roof 1200 m2 in Krakow, flat roof. Check the rainwater discharge and a DN110 soil stack with 38 DU, K=0.5.",
+      "expected_output": "Uses plumbing_calc.py rainwater with a stated rainfall intensity and return period and says where the local value comes from, and plumbing_calc.py stack with K and DU from EN 12056-2. Says the intensity, return period and capacity table must be checked against the licensed standard and the national rule. Mentions the secondary (overflow) system with a longer return period, and does not invent the intensity value.",
+      "files": []
+    },
+    {
+      "id": 7,
+      "prompt": "Dobierz kabel i zabezpieczenie dla rozdzielnicy oddziałowej: 60 kW przyłączone, jednoczesność 0,75, cos fi 0,92, trasa 90 m w korytku, 400 V TN-S.",
+      "expected_output": "Uses electrical_calc.py diversity, load-current (about 70.6 A), cable-drop and correction. Checks the condition Ib <= In <= Iz with the corrected rating, not only the voltage drop. States the correction factors and that they come from HD 60364-5-52 tables to verify. Marks the short-circuit level, Zs and the cable reaction-to-fire class as to verify. Output in Polish in the selection sheet format, no invented model.",
+      "files": []
+    },
+    {
+      "id": 8,
+      "prompt": "What size cable do I need for a 22 kW three-phase load, 120 m run, at 400 V? Also will the 5% drop limit be met?",
+      "expected_output": "Asks for or states the power factor, then uses load-current and cable-drop with a stated resistivity at operating temperature (not 20 C) and a stated reactance assumption. Uses cable-drop --max-drop-percent 5 --size for the minimum section and then checks the current rating after correction, saying the cable must also satisfy Ib <= In <= Iz. Notes the section from voltage drop is not automatically the right section. No invented product data.",
+      "files": []
+    },
+    {
+      "id": 9,
+      "prompt": "Dobierz zestaw pompowy tryskaczy dla magazynu. Gęstość 5 mm/min, powierzchnia 216 m2, hydranty 900 l/min, czas 60 min.",
+      "expected_output": "Uses fire_calc.py sprinkler-flow (1080 l/min sprinkler plus 900 l/min hose allowance, 1980 l/min total) and water-reserve (118.8 m3), then hvac_calc.py pump-power for the duty. Marks the density, design area, hose allowance and duration as to verify against EN 12845 with the clause, does not treat them as fixed. Asks for the hydraulic calculation, the pump curve check at 1.5 x flow, product approvals (CNBOP-PIB or CE) and the fire-rated supply. Output in Polish in the selection sheet format, no invented model.",
+      "files": []
+    },
+    {
+      "id": 10,
+      "prompt": "Check the smoke exhaust for a 12 000 m3 atrium and count the smoke detectors for a 1200 m2 open floor, 10 m spacing.",
+      "expected_output": "Uses fire_calc.py smoke-exhaust for an air change rate only if the rule is stated, and asks for the national rule or the fire safety concept value instead of inventing it; says the temperature class (F class) and make-up air must be checked. Uses detector-count for the spacing and warns that the spacing and ceiling height limit come from CEN/TS 54-14 and the detector data, and that walls, beams and obstructions add detectors. Marks unknowns to verify.",
+      "files": []
     }
   ]
 }

@@ -18,6 +18,18 @@
       "prompt": "A reviewer says our fire dampers are missing where ducts cross the corridor walls. Check if they are right.",
       "expected_output": "Asks for or reads fire separation data (which walls are fire-rated, classification) and the drawings. Builds a short checklist on fire dampers at fire separations, citing the jurisdiction's fire regulation from official sources and EN 15650/EN 1366-2 by number only. Flags the case for the fire safety expert if disputed. Gives result per crossing.",
       "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Sprawdź c.w.u. w naszym budynku mieszkalnym: zasobnik 60 C, cyrkulacja czasowa, woda podawana bez zaworu mieszającego do łazienek.",
+      "expected_output": "Builds the checklist from plumbing.md compliance topics: store temperature, distribution temperature, Legionella control, cold water temperature, water quality testing, materials in contact with drinking water, backflow protection. Takes the hygiene requirements from official sources (ISAP, the Ministry of Health regulation) and marks them TO VERIFY when the text is not read, never inventing the temperature values from memory. Flags the missing thermostatic mixing valve as a scald risk and proposes a fix without redesigning. Results use only OK, FAIL, TO VERIFY, NOT APPLICABLE. Output in Polish.",
+      "files": ["../project-brief/examples/PROJECT.example.md"]
+    },
+    {
+      "id": 5,
+      "prompt": "The reviewer says the cable to the smoke exhaust fan needs a fire rating. We used a standard YKY cable on a route through the fire zone. Who is right?",
+      "expected_output": "Asks for the building classification, the fire zone layout and the route before deciding, and states the requirement must be read from the national fire regulation on an official source. Covers the fire-rated circuit, the supply reliability for the sprinkler pump, the cable reaction-to-fire class per EN 50575, penetration sealing and the electrical installation for safety services (with electrical.md characteristics). States the case may need the fire safety expert where disputed. Does not quote the standard text or invent the class.",
+      "files": []
     }
   ]
 }
