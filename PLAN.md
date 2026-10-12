@@ -3,14 +3,14 @@
 Public, open-source set of Agent Skills for construction engineers (design and contracting).
 Skills are written in English. Deliverables are produced in the language set in `PROJECT.md`.
 
-Status: phases 0-4 done, phase 5 next. Last update: 2026-10-12.
+Status: phases 0-4 done, phase 5 in progress. Last update: 2026-10-12.
 
 Progress notes:
 - Phase 0, 1 done.
 - Phase 2 done: `equipment-selection` covers HVAC, plumbing, electrical and fire, each with a script, an example and evals; `code-compliance` has 5 evals and 4 examples (HVAC, plumbing, electrical, fire). Discipline files `hvac.md`, `plumbing.md`, `electrical.md`, `fire.md` are at v0.1 (structure full, values to review).
 - Phase 3 done, except the real-project check of its done criterion: `cost-estimate`, `bid-review` and `project-correspondence` each have references, a script, examples and 4 evals.
 - Phase 4 done: `drawing-review`, `dxf-dwg-analysis` and `ifc-analysis` each have references, a script, an example and 4 evals. Legal clause numbers and the real-project checks of the phase done criteria remain open.
-- Phase 5 next: `meeting-minutes`, `site-visit`, `punch-list` (mobile test needs claude.ai).
+- Phase 5 in progress: `meeting-minutes` done. `site-visit` and `punch-list` next; the mobile test needs claude.ai (phase 5 done criterion).
 - Optional Python dependencies are declared in `tools/requirements-optional.txt` (pypdf, ezdxf, ifcopenshell, ODA File Converter); missing dependencies degrade to a clear message, and the drawing skill works without Python at all.
 - `architecture.md` and `structural.md` remain skeletons; `uk.md` and `us.md` remain skeletons (phase 6).
 - Still open for a v1.0 pass: verified legal clause numbers (all jurisdiction references marked "to verify"), and real-project checks of the done criteria.

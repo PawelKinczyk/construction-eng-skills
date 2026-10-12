@@ -1,0 +1,29 @@
+{
+  "skill_name": "meeting-minutes",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Mam notatki z dzisiejszej narady koordynacyjnej (dane niżej). Zrób protokół i pilnuj działań z poprzedniej narady.",
+      "expected_output": "Asks for the raw material, the previous minutes and the action register before writing, and takes the minutes number from the project register. Produces the structure from references/minutes-format.md: head with attendees and copies, matters arising with every previous action closed, carried or marked not reported, agenda items with report and decisions, a decision table naming who decided, actions with a named owner in a company and an absolute date, risks raised, and the next meeting. Uses actions.py for the register and prints the register rows it created. Flags decisions that change scope, cost or time and routes them to project-correspondence. Marks the minutes as a draft for the chair. Output in Polish.",
+      "files": ["../project-brief/examples/PROJECT.example.md"]
+    },
+    {
+      "id": 2,
+      "prompt": "Which actions from our last three meetings are still open and who is late?",
+      "expected_output": "Uses actions.py list --open and --overdue (and summary per owner), reports the overdue items with owner, due date and days late, and states for each what it blocks. Does not invent actions not in the register, and notes that actions closed without an evidence note are the ones an audit picks up.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Write the minutes from this audio transcript of the site meeting and give me the decisions as a log.",
+      "expected_output": "Picks out decisions and actions from the transcript and says plainly that discussion is not recorded, only decisions and actions. Names who decided each decision and who owns each action, with absolute dates, and asks the user where the transcript does not state the actor instead of writing 'it was agreed'. Returns the decision log entries with what each decision affects, and warns that a decision changing scope, cost or time is not complete without a notice or instruction.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Add to the minutes that the client accepted our replacement of the pump type, and that we will deal with the rest later.",
+      "expected_output": "Refuses to write an unsourced acceptance and a vague deadline: it asks for the meeting or document in which the client accepted the pump change, and for an absolute date instead of 'later'. Records the decision only with the actor and the reference, keeps the open items in matters arising with a date, and does not invent a decision or a deadline.",
+      "files": []
+    }
+  ]
+}
