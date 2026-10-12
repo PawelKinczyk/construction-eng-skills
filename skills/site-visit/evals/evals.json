@@ -1,0 +1,29 @@
+{
+  "skill_name": "site-visit",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Jestem na budowie, mam 12 zdjęć i dyktowanie. Zrób raport z wizyty: skrzydło A izolacje, skrzydło B wykop przy kolizji.",
+      "expected_output": "Works with no scripts and no Python, reads the photos and the dictation, and produces the report structure from references/site-report-format.md: identification with weather and time, summary, present on site, progress with the source of each percentage, numbered observations with photo numbers, safety, quality and defects for punch-list, materials, instructions with written or verbal stated, follow-up items with owner and date, photo list, and what was not visited. Keeps observations separate from conclusions, marks estimated values as estimated, never invents a measurement or a person, and says the report number must be confirmed in the project register. Output in Polish.",
+      "files": ["../project-brief/examples/PROJECT.example.md"]
+    },
+    {
+      "id": 2,
+      "prompt": "There is an open excavation with no barriers at the entrance. Write that up.",
+      "expected_output": "Records the safety observation with place, time and what was seen, names who was told on site and when, does not soften it because the report goes to the contractor, and does not speculate about consequences or blame anyone. States whether it was an imminent danger and whether it was reported to the person responsible. If the user gives no time or place, asks for them instead of writing a general remark.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "The site manager told me the insulation is incomplete at the valves and that he will fix it. Add my suggestion to move the valve 200 mm to make room.",
+      "expected_output": "Records the site manager's statement as attributed, not as its own observation ('reported by the site manager'), and records the promised fix with an owner and a date, not as an agreement made. Refuses to put the valve move into the report as a site suggestion: it is a design change, so it is routed to the designer through project-correspondence, and the report only records that the question was raised. Does not invent the fix date.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Turn my voice note from this morning's visit into a report I can send to the client today.",
+      "expected_output": "Produces the short form of the report from the dictation, keeps the client-facing tone factual with no blame, and lists what is missing for a complete report (time on site, who was present, weather, photo references) as 'not recorded' rather than filling it in. Notes that the .docx, the numbering from the register and the attachment of documents are desktop jobs, and that this report is not an instruction, a notice or an acceptance.",
+      "files": []
+    }
+  ]
+}

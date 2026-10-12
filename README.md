@@ -20,7 +20,7 @@ The skills work with Claude Code, claude.ai (web, desktop, mobile) and other age
 | Files | `dxf-dwg-analysis` | DXF/DWG layers, blocks, counts, revision comparison | beta (DXF) |
 | Files | `ifc-analysis` | IFC quantities, property sets, IDS validation | beta |
 | Site | `meeting-minutes` | Minutes with decisions and actions, plus the registers | beta |
-| Site | `site-visit` | Site visit report from photos and dictation, works on mobile | planned |
+| Site | `site-visit` | Site visit report from photos and dictation, works on mobile | beta |
 | Site | `punch-list` | Defect register | planned |
 
 Disciplines: architecture and structural (general), HVAC, plumbing, electrical, fire protection.
