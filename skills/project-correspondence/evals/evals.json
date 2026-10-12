@@ -1,0 +1,29 @@
+{
+  "skill_name": "project-correspondence",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Napisz pismo do zamawiającego: nie przekazali rzutu kanalizacji podposadzkowej, a my musimy zamówić materiał. Termin odpowiedzi to tydzień.",
+      "expected_output": "Reads PROJECT.md for the contract form, role and deliverable language. Asks for the facts (dates, earlier document numbers, when the material order is needed) rather than inventing them. Produces an RFI in the format from references/letter-structure.md with the document reference, one question, why it matters, the date needed and the reason. Takes the number from the register with corr_log.py and shows the register row. Adds the reservation where relevant, avoids blame, and marks the draft as for the responsible person to sign. Output in Polish.",
+      "files": ["../project-brief/examples/PROJECT.example.md"]
+    },
+    {
+      "id": 2,
+      "prompt": "We hit an uncharted heating pipe on site. The client says we should have known. What do we send, and by when?",
+      "expected_output": "Asks for the contract form, the clause that governs unforeseen conditions and the notice period, and the trigger date, and reads the clause from the documents supplied instead of quoting from memory. Drafts a notice with the event, the date, the clause, the effect (time and cost, quantified or stated as not yet quantified) and an explicit reservation of rights. Warns that the notice must go inside the time bar and that sending date and delivery method must be recorded. States the case may need the contract manager or lawyers. Does not concede liability and does not quantify an unknown claim.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "List everything we sent that is still unanswered and tell me what is overdue.",
+      "expected_output": "Uses scripts/corr_log.py list --overdue on the project register, reports the overdue items with their numbers, dates and the reason each one matters, and drafts one reminder per overdue item quoting the original number and date and stating the consequence of further delay. Does not invent entries not in the register, and notes that incoming verbal answers must be confirmed in writing.",
+      "files": ["examples/register-example.json"]
+    },
+    {
+      "id": 4,
+      "prompt": "Write a transmittal for the shop drawings we are issuing for approval.",
+      "expected_output": "Uses the transmittal format: list of documents with title, number, revision, status and format, the purpose of issue (for approval, with the deadline), and states that the drawings are not for construction until approved. Takes the number from the register. Asks for the drawing list and revisions instead of inventing them, and updates the register row.",
+      "files": []
+    }
+  ]
+}

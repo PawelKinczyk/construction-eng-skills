@@ -15,7 +15,7 @@ The skills work with Claude Code, claude.ai (web, desktop, mobile) and other age
 | Engineering | `code-compliance` | Checks a design against law and standards, with clause references | beta |
 | Engineering | `cost-estimate` | Quantity takeoff, unit rates and cost structure from local price sources | beta |
 | Engineering | `bid-review` | Analyses tender documents: scope, risks, questions, offer | beta |
-| Engineering | `project-correspondence` | Letters, RFIs, notices, coordination issues | planned |
+| Engineering | `project-correspondence` | Letters, RFIs, notices, coordination issues, register | beta |
 | Files | `drawing-review` | PDF drawing register, revision comparison, data extraction | planned |
 | Files | `dxf-dwg-analysis` | DXF/DWG layers, blocks, counts, revision comparison | planned |
 | Files | `ifc-analysis` | IFC quantities, property sets, IDS validation | planned |
