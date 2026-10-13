@@ -177,6 +177,7 @@ Checklist seed for `code-compliance`. Each topic needs the jurisdiction's legal 
 | Gas suppression | when permitted for occupied rooms, concentration and warning time |
 | Fire dampers and ducts | location, class, approval, and the alarm interface (with `hvac.md`) |
 | Electrical installations for fire | fire-rated circuits, the supply to fire pumps, smoke control and alarms (with `electrical.md`) |
+| Fire-rated cable circuits | required circuit endurance time for each safety system, cable reaction-to-fire class (EN 50575, number only), fire-resistant supports and fixings, penetration seals, and whether the cable type is approved for the use |
 | Fire service access | access roads, hardstanding, fire lifts, firefighting lobbies, connection points |
 | Product approvals | CE marking and national approvals for fire products, and the installer competence |
 | Maintenance and testing | inspection and test regime required by law, and the records |

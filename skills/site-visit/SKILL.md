@@ -75,6 +75,7 @@ Write in `deliverable_language` from `PROJECT.md`. Markdown by default (readable
 ## Rules
 
 - Record, do not judge. The report states what was there; the decision about consequences belongs to the contract manager, the designer or the authority.
+- Safety entries carry the field "imminent danger: yes / no / not recorded". Purpose of the visit not stated means "not recorded", never "routine". Keep internal to-do items out of the client-bound text. The short form ends with one line: the `.docx`, the numbering and the attachments are done on a desktop.
 - Imminent danger: when a serious or imminent danger is observed, first tell the user at once to inform the person responsible on site (the site manager), before anything else; the report is not the notification. Record who was told and when once known.
 - Never invent an observation, a measurement, a person or a time. "Not recorded" is a valid entry and a useful one.
 - Never propose a design change in a site report. Point it out and route it to the designer through `project-correspondence`.

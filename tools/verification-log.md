@@ -56,3 +56,26 @@ fixtures. The fixed skills were NOT re-run through the full agent evaluation.
 Still open for a human: legal clause numbers marked "to verify" (ISAP blocks automated fetching, so
 no Polish legal text could be read), engineering typical values, a real-project test, the mobile test
 on claude.ai.
+
+## Re-evaluation of the fixed skills (2026-10-13)
+
+Second agent run, same method (separate executors and judges, same model family, so still not an independent review) on the six skills changed by commit e126311: project-correspondence, drawing-review, dxf-dwg-analysis, ifc-analysis, site-visit, code-compliance (25 prompts, using the new fixtures).
+
+| Skill | pass | pass with notes | fail |
+|---|---|---|---|
+| project-correspondence | 0 | 4 | 0 |
+| drawing-review | 3 | 1 | 0 |
+| dxf-dwg-analysis | 3 | 1 | 0 |
+| ifc-analysis | 2 | 2 | 0 |
+| site-visit | 2 | 2 | 0 |
+| code-compliance | 0 | 5 | 0 |
+
+The earlier fail (project-correspondence #3) is gone. Remaining skill defects found by the judges and fixed in the follow-up commit:
+
+- code-compliance: results from an original-text journal PDF are TO VERIFY; topics that cannot be assessed become TO VERIFY rows; an applicability-list variant for "which regulations apply"; conclusions that depend on an unresolved row are conditional; a "Fire-rated cable circuits" topic in `fire.md`; eval #5 no longer expects a sprinkler pump for a project without sprinklers.
+- project-correspondence: language rule when PROJECT.md is absent; no generic reservation of rights and no invented commitments in reminders; reminders get a number and a draft register row; written confirmation of verbal answers; "Register: none found" line; never borrow numbers from the example register.
+- site-visit: "imminent danger" field in safety entries; purpose is "not recorded" when not given; no internal to-dos in client text; desktop-deferral line in the short form.
+- dxf-dwg-analysis: summary states that inserts are counted and frozen-layer inserts are a separate subtotal.
+- ifc-analysis: output ends with a routing line and a millimetre-unit warning.
+
+Not done: the scripts' known minor items (duplicate Name/Tag columns in `ifc_report.py schedule`), a legible scan fixture for the drawing-review visual-read path, and a real DWG fixture. These second-pass edits were not re-run through agents.

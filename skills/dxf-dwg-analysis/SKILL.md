@@ -61,7 +61,7 @@ Python with `ezdxf` is required for every analysis here. DWG files must first be
 
 Write in `deliverable_language` from `PROJECT.md`. Default Markdown; on request `.csv` or `.xlsx`.
 
-1. **Summary**: file(s) analysed, units, drawing extents, entity and block totals, the three findings that matter.
+1. **Summary**: file(s) analysed, units, drawing extents, entity and block totals, the three findings that matter. State that block inserts are counted, not plotted symbols, and report inserts on frozen or off layers as a separate subtotal.
 2. **Layers**: table with layer name, state, entity count, standard status, note.
 3. **Blocks**: table with block name, insert count, layers used, attribute tags, note; a separate attribute table when the user needs the values.
 4. **Text extracted**: table with text, layer, position, sheet or layout.

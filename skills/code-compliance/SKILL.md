@@ -28,11 +28,15 @@ Goal: a compliance checklist where every requirement has an exact, checkable sou
    - Start from "Compliance topics" in the discipline file.
    - Map each topic to its legal source in the jurisdiction file: "Legal hierarchy" and "Standards map by topic".
    - Drop topics that do not apply. Keep them in the list with result NOT APPLICABLE and the reason.
+   - A topic that cannot be assessed (no data, no readable source) is still a row with result TO VERIFY. A short line per topic is enough. Do not invent a fifth result value.
+   - A question of the type "which regulations apply" with no design data: give an applicability list (topic, source, why it applies, what data is needed) instead of the 8-column checklist. Offer the checklist once the data exists.
+   - A conclusion that rests on an unresolved row (for example "is this wall a fire separation") is conditional on that row. Say so in its result and in the summary.
 2. **Get each requirement from the source.**
    - Law and regulations: read the current text on an official government source from the jurisdiction file. Cite act, date, article or paragraph, and the consolidated text or journal reference you read.
    - Standards: cite number, edition and clause. Do not quote paid standard text. Use the value only when the user provides the standard or the law itself states the value.
    - If you cannot read the source, the requirement is TO VERIFY. Do not fill it from memory.
    - If an official legal site blocks automated fetching (for example the ISAP human-verification page), try the official journal PDF on an official domain from the jurisdiction file. If that fails, ask the user to paste the clause or the consolidated text. The requirement stays TO VERIFY meanwhile.
+   - A journal PDF holds only the original text of an act. When the act is often amended, a result from it alone is TO VERIFY, or carries the note "original text only, amendments not checked". Never give a hard OK or FAIL from it. Report the blocked site to the user as a finding.
 3. **Compare.** For each requirement: the required value, the design value with its source (drawing, page, calculation), and the result.
 4. **Explain failures.** For each FAIL: what is wrong, by how much, and one or two ways to fix it. Do not redesign; propose.
 5. **Conflicts.** When two sources conflict, apply the hierarchy from the jurisdiction file and say which one wins and why.

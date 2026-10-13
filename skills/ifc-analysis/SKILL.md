@@ -59,6 +59,8 @@ Python with `ifcopenshell` is required for everything here. There is no way to r
 
 ## 5. Output
 
+End with a routing line: numbers for money go to `cost-estimate`, for selection to `equipment-selection`. In a model with millimetre units, warn that a quantity read as metres is wrong by a factor of 1000.
+
 Write in `deliverable_language` from `PROJECT.md`. Default Markdown; on request `.csv` or `.xlsx`.
 
 1. **Summary**: file, date, schema, units, storeys, element counts by type, the three findings that matter.

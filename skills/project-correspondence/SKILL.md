@@ -13,6 +13,7 @@ The skill drafts and registers. The responsible person signs and sends. This is 
 
 - Read `PROJECT.md`: jurisdiction, contract form, role (who writes to whom), deliverable language, project standards for document numbering, and the correspondence register location.
 - No `PROJECT.md`: offer `project-brief`. If declined, ask for jurisdiction, contract form, role and deliverable language.
+- No `PROJECT.md` and the request is in another language than the project's usual one: write in the language of the request, say so, and ask to confirm.
 - Load `references/shared/jurisdictions/<jurisdiction>.md` for the contract forms, language conventions and the official legal sources.
 - Load `references/letter-structure.md` (this skill) for the formats and the tone rules.
 - Load `references/contract-notices.md` (this skill) for the notice types, their deadlines and what each must contain.
@@ -42,9 +43,9 @@ The skill drafts and registers. The responsible person signs and sends. This is 
    - what is needed and by when, and why that date matters;
    - what happens if nothing is received (reservation of rights, or the effect on the programme, cost or safety) - state it once, factually;
    - what is being reserved, not threatened.
-4. **State the reservation of rights** whenever the document reports an event that may lead to time or money: state the event, the notice given under which clause, and that rights are reserved, without quantifying what is not yet known.
+4. **State the reservation of rights** whenever the document reports an event that may lead to time or money: state the event, the notice given under which clause, and that rights are reserved, without quantifying what is not yet known. A reminder or a transmittal with no such event carries no generic "rights reserved" line. Do not add commitments the user did not give (for example "we stop work").
 5. **Check the deadlines.** For any notice under the contract, verify the period and the trigger from the contract documents, and send well inside the period. Record the sending date and the delivery method in the register.
-6. **Follow up.** From the register, list what is unanswered and approaching its deadline, and draft the reminder. Reminders quote the original number and date. For a reminder request, draft one reminder per overdue item from the register immediately (signatory as a placeholder, number, date and consequence taken from the register), and put the follow-up questions after the drafts, never instead of them.
+6. **Follow up.** From the register, list what is unanswered and approaching its deadline, and draft the reminder. Reminders quote the original number and date. For a reminder request, draft one reminder per overdue item from the register immediately (signatory as a placeholder, number, date and consequence taken from the register), and put the follow-up questions after the drafts, never instead of them. Allocate a number and a register row to each reminder when drafting, marked "draft". End each reminder with a request to confirm any verbal answer in writing.
 
 ## 4. Verify
 
@@ -64,7 +65,7 @@ Write in `deliverable_language` from `PROJECT.md`. Default Markdown; on request 
 Sections per type are in `references/letter-structure.md`. Every output ends with:
 1. **Document identity**: number, date, subject, addressee, our reference, their reference, attachments list.
 2. **Body**: facts, request, date needed, reservation.
-3. **Register update**: the row added to the register (number, type, to, deadline).
+3. **Register update**: the row added to the register (number, type, to, deadline). When no register exists, say "Register: none found" and offer `corr_log.py init --prefix`. Never borrow numbers from the example register.
 4. **To verify**: clauses to confirm, facts missing, approvals the letter needs before sending.
 
 State clearly that the document is a draft for the responsible person to check, sign and send. Never claim it has been sent.
