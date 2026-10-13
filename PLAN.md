@@ -13,7 +13,7 @@ Progress notes:
 - Phase 5 done: `meeting-minutes`, `site-visit` (no scripts, mobile-first) and `punch-list`. The mobile test on claude.ai remains open, as does the real-project check of the phase done criterion.
 - Phase 6 next: fill `us.md` and `uk.md`, general content for `architecture.md` and `structural.md`, verify the legal clause numbers marked "to verify", run the evals, and prepare the v1.0 release.
 - Optional Python dependencies are declared in `tools/requirements-optional.txt` (pypdf, ezdxf, ifcopenshell, ODA File Converter); missing dependencies degrade to a clear message, and the drawing skill works without Python at all.
-- `architecture.md` and `structural.md` remain skeletons; `uk.md` and `us.md` remain skeletons (phase 6).
+- `architecture.md`, `structural.md`, `uk.md` and `us.md` have draft content (phase 6, 2026-10-13); every legal item not read from an official source is marked "to verify".
 - Still open for a v1.0 pass: verified legal clause numbers (all jurisdiction references marked "to verify"), and real-project checks of the done criteria.
 
 ---
