@@ -168,3 +168,7 @@ Checklist seed for `code-compliance`. Each topic needs the jurisdiction's legal 
 
 See `eu.md` "Standards map by topic" for EN standard numbers (EN 806 series, EN 1717, EN 12056 series, EN 752, EN 12502 series, EN 12897).
 Country rules for water supply, drainage and DHW temperatures are in the jurisdiction files. In Poland: WT § 113-132 for water supply and drainage, and the water quality regulation of the Ministry of Health. Verify the paragraph numbers against the ISAP text before citing.
+
+## Drain and stack capacity tables
+
+Stack and drain capacity tables belong to the licensed standards (EN 12056 series or the national equivalent) and are not in this repo. The agent asks the user for the capacity value, or marks the capacity check "to verify"; it does not use a remembered or assumed value.

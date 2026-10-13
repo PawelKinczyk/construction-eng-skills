@@ -5,7 +5,9 @@
       "id": 1,
       "prompt": "Sprawdź, czy wentylacja w naszym biurowcu spełnia przepisy. Centrala 9600 m³/h na 320 osób, odzysk ciepła obrotowy 78%.",
       "expected_output": "Reads PROJECT.md (pl). Establishes which WT version applies from the permit application date before checking. Builds a checklist from hvac.md compliance topics (ventilation rates, heat recovery, SFP/ecodesign, fire dampers, insulation, acoustics). Takes legal requirements only from gov.pl sources (ISAP), cites act and paragraph, marks TO VERIFY where text not read. Computes 30 m3/h per person design value and compares with the source value only if read. Output in Polish with the 4 result values.",
-      "files": ["../project-brief/examples/PROJECT.example.md"]
+      "files": [
+        "../project-brief/examples/PROJECT.example.md"
+      ]
     },
     {
       "id": 2,
@@ -15,21 +17,27 @@
     },
     {
       "id": 3,
-      "prompt": "A reviewer says our fire dampers are missing where ducts cross the corridor walls. Check if they are right.",
-      "expected_output": "Asks for or reads fire separation data (which walls are fire-rated, classification) and the drawings. Builds a short checklist on fire dampers at fire separations, citing the jurisdiction's fire regulation from official sources and EN 15650/EN 1366-2 by number only. Flags the case for the fire safety expert if disputed. Gives result per crossing.",
-      "files": []
+      "prompt": "A reviewer says our fire dampers are missing where ducts cross the corridor walls (project in Poland, see PROJECT.md). Check if they are right. Data: corridor walls on levels 1-4 are EI 60; crossing 1: supply duct 400x300 mm, level 2, no damper; crossing 2: extract duct 250x200 mm, level 3, damper EIS 60 installed; crossing 3: supply duct 500x300 mm, level 4, wall class not on the drawing.",
+      "expected_output": "Uses the Polish jurisdiction file and the corridor wall data given. Builds a short checklist on fire dampers at fire separations, citing the Polish fire regulation (WT) from official sources only and EN 15650/EN 1366-2 by number only. Gives a result per crossing: crossing 1 FAIL or TO VERIFY pending the required damper class, crossing 2 OK subject to class check, crossing 3 TO VERIFY because the wall class is missing. Flags the case for the fire safety expert if disputed.",
+      "files": [
+        "../project-brief/examples/PROJECT.example.md"
+      ]
     },
     {
       "id": 4,
-      "prompt": "Sprawdź c.w.u. w naszym budynku mieszkalnym: zasobnik 60 C, cyrkulacja czasowa, woda podawana bez zaworu mieszającego do łazienek.",
-      "expected_output": "Builds the checklist from plumbing.md compliance topics: store temperature, distribution temperature, Legionella control, cold water temperature, water quality testing, materials in contact with drinking water, backflow protection. Takes the hygiene requirements from official sources (ISAP, the Ministry of Health regulation) and marks them TO VERIFY when the text is not read, never inventing the temperature values from memory. Flags the missing thermostatic mixing valve as a scald risk and proposes a fix without redesigning. Results use only OK, FAIL, TO VERIFY, NOT APPLICABLE. Output in Polish.",
-      "files": ["../project-brief/examples/PROJECT.example.md"]
+      "prompt": "Sprawdź c.w.u. w naszym budynku mieszkalnym (PROJECT.md w załączniku): zasobnik 60 C, cyrkulacja czasowa, woda podawana bez zaworu mieszającego do łazienek.",
+      "expected_output": "Builds the checklist from plumbing.md compliance topics: store temperature, distribution temperature, Legionella control, cold water temperature, water quality testing, materials in contact with drinking water, backflow protection. Takes the hygiene requirements from official sources (ISAP, the Ministry of Health regulation) and marks them TO VERIFY when the text is not read, never inventing the temperature values from memory. Flags the missing thermostatic mixing valve as a scald risk and proposes a fix without redesigning. Results use only OK, FAIL, TO VERIFY, NOT APPLICABLE. Uses the residential PROJECT.md fixture (pl, plumbing). Keeps all 8 checklist columns including Design source. Output in Polish with labels such as OK, NIEZGODNE, DO WERYFIKACJI, NIE DOTYCZY.",
+      "files": [
+        "evals/files/PROJECT.residential.md"
+      ]
     },
     {
       "id": 5,
-      "prompt": "The reviewer says the cable to the smoke exhaust fan needs a fire rating. We used a standard YKY cable on a route through the fire zone. Who is right?",
-      "expected_output": "Asks for the building classification, the fire zone layout and the route before deciding, and states the requirement must be read from the national fire regulation on an official source. Covers the fire-rated circuit, the supply reliability for the sprinkler pump, the cable reaction-to-fire class per EN 50575, penetration sealing and the electrical installation for safety services (with electrical.md characteristics). States the case may need the fire safety expert where disputed. Does not quote the standard text or invent the class.",
-      "files": []
+      "prompt": "The reviewer says the cable to the smoke exhaust fan needs a fire rating (project in Poland, see PROJECT.md). We used a standard YKY cable on a route through the fire zone. Building: 5 storeys, category ZL III, route from the switchboard in the basement through two fire zones to the roof fan, about 60 m. Who is right?",
+      "expected_output": "Uses the Polish jurisdiction file and the data given (ZL III, 5 storeys, 60 m route through two fire zones). States the requirement must be read from the national fire regulation on an official source and marks it TO VERIFY if not read. Covers the fire-rated circuit, the supply reliability for the sprinkler pump, the cable reaction-to-fire class per EN 50575, penetration sealing and the electrical installation for safety services (with electrical.md characteristics). States the case may need the fire safety expert where disputed. Does not quote the standard text or invent the class.",
+      "files": [
+        "../project-brief/examples/PROJECT.example.md"
+      ]
     }
   ]
 }

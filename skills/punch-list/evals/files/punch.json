@@ -1,0 +1,149 @@
+{
+  "project": "Biurowiec Zabłocie B2",
+  "items": [
+    {
+      "id": "U-001",
+      "location": "skrz. A, poz. 0, pom. 1.04",
+      "room": "1.04",
+      "trade": "sanitarne",
+      "element": "izolacja przewodu c.w.u.",
+      "description": "Izolacja zakończona 300 mm przed zaworem odcinającym",
+      "severity": "B",
+      "photo": "SV-007/4-5",
+      "owner": "Wykonawca / M. Lis",
+      "due": "2026-10-15",
+      "status": "open",
+      "raised": "B2-SV-007",
+      "verified_by": "",
+      "verified_on": "",
+      "note": "",
+      "history": [
+        {
+          "date": "2026-10-12",
+          "status": "open",
+          "note": "raised (B2-SV-007)"
+        }
+      ]
+    },
+    {
+      "id": "U-002",
+      "location": "skrz. A, poz. 0, pom. 1.05",
+      "room": "1.05",
+      "trade": "elektryczne",
+      "element": "oprawa oświetleniowa",
+      "description": "Oprawa nie działa po próbie napięciowej",
+      "severity": "B",
+      "photo": "SV-007/8",
+      "owner": "Wykonawca elektryczny / R. Kmita",
+      "due": "2026-10-20",
+      "status": "open",
+      "raised": "B2-SV-007",
+      "verified_by": "",
+      "verified_on": "",
+      "note": "",
+      "history": [
+        {
+          "date": "2026-10-12",
+          "status": "open",
+          "note": "raised (B2-SV-007)"
+        }
+      ]
+    },
+    {
+      "id": "U-003",
+      "location": "skrz. A, poz. 0, korytarz",
+      "room": "korytarz",
+      "trade": "sanitarne",
+      "element": "przewód kanalizacji",
+      "description": "Przewód podwieszony w odległości 1,45 m od płyty stropowej",
+      "severity": "B",
+      "photo": "SV-007/6",
+      "owner": "Wykonawca / P. Zieliński",
+      "due": "2026-10-09",
+      "status": "open",
+      "raised": "B2-SV-007",
+      "verified_by": "",
+      "verified_on": "",
+      "note": "",
+      "history": [
+        {
+          "date": "2026-10-12",
+          "status": "open",
+          "note": "raised (B2-SV-007)"
+        }
+      ]
+    },
+    {
+      "id": "U-004",
+      "location": "skrz. A, poz. 0, pom. 1.02",
+      "room": "1.02",
+      "trade": "sanitarne",
+      "element": "otulina kolana",
+      "description": "Otulina przewężona opaską na kolanie c.w.u.",
+      "severity": "C",
+      "photo": "SV-007/7",
+      "owner": "Wykonawca / M. Lis",
+      "due": "2026-10-24",
+      "status": "open",
+      "raised": "B2-SV-007",
+      "verified_by": "",
+      "verified_on": "",
+      "note": "",
+      "history": [
+        {
+          "date": "2026-10-12",
+          "status": "open",
+          "note": "raised (B2-SV-007)"
+        }
+      ]
+    },
+    {
+      "id": "U-005",
+      "location": "skrz. A, poz. 0, pom. 1.01",
+      "room": "1.01",
+      "trade": "ogólnobudowlane",
+      "element": "tynk wewnętrzny",
+      "description": "Rysa skurczowa na ścianie w osi A, długość ok. 400 mm",
+      "severity": "C",
+      "photo": "SV-007/9",
+      "owner": "",
+      "due": "2026-10-26",
+      "status": "open",
+      "raised": "B2-SV-007",
+      "verified_by": "",
+      "verified_on": "",
+      "note": "",
+      "history": [
+        {
+          "date": "2026-10-12",
+          "status": "open",
+          "note": "raised (B2-SV-007)"
+        }
+      ]
+    },
+    {
+      "id": "U-006",
+      "location": "skrz. A, poz. 0, pom. 1.06",
+      "room": "1.06",
+      "trade": "elektryczne",
+      "element": "puszka podtynkowa",
+      "description": "Puszka osadzona 8 mm poza licem tynku",
+      "severity": "C",
+      "photo": "",
+      "owner": "Wykonawca elektryczny / R. Kmita",
+      "due": "2026-10-26",
+      "status": "open",
+      "raised": "B2-SV-007",
+      "verified_by": "",
+      "verified_on": "",
+      "note": "",
+      "history": [
+        {
+          "date": "2026-10-12",
+          "status": "open",
+          "note": "raised (B2-SV-007)"
+        }
+      ]
+    }
+  ]
+}

@@ -37,6 +37,7 @@ What needs Python: bulk work over a folder of PDFs - scanning, text extraction, 
    python scripts/pdf_register.py titles --file drawings/A-101.pdf
    python scripts/pdf_register.py compare --a register-revB.csv --b register-revC.csv
    ```
+   A rule that matches nothing (the script prints a `WARNING` on stderr) is a rules problem, not a drawing problem: check the JSON escaping and the wording of the title block, and fix the rules before reporting missing fields.
 3. Mark every sheet where a field is missing, unreadable, or contradicts the file name. Never fill a field from another sheet's pattern.
 
 **B. Content extraction**

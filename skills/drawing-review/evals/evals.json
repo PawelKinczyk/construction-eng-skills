@@ -3,27 +3,40 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Zrób rejestr arkuszy z tego pakietu PDF-ów (folder drawings) i sprawdź, czy metryki są kompletne.",
-      "expected_output": "Reads PROJECT.md for the project standard and register format. Uses scripts/pdf_register.py scan with a rules file for the project's title block, or reads the sheets directly for a small set. Builds the register from the title blocks, not from the file names, and reports missing fields, name mismatches and scanned sheets as findings. States which extractor was used and which sheets were read visually. Does not invent a sheet number or revision. Output in Polish in the register format.",
-      "files": ["../project-brief/examples/PROJECT.example.md"]
+      "prompt": "Zrób rejestr arkuszy z tego pakietu PDF-ów (folder evals/files/drawings, reguły metryki w evals/files/rules.json) i sprawdź, czy metryki są kompletne.",
+      "expected_output": "Reads PROJECT.md for the project standard and register format. Uses scripts/pdf_register.py scan with a rules file for the project's title block, or reads the sheets directly for a small set. Builds the register from the title blocks, not from the file names, and reports missing fields, name mismatches and scanned sheets as findings. States which extractor was used and which sheets were read visually. Does not invent a sheet number or revision. Output in Polish in the register format. Fixture facts: 6 files; A-101 has no status; M-103_revB.pdf carries sheet M-104 in the title block (name mismatch); scan_E-201.pdf has no text layer (read visually); M-301 shows no scale code (NTS).",
+      "files": [
+        "../project-brief/examples/PROJECT.example.md",
+        "evals/files/drawings",
+        "evals/files/rules.json"
+      ]
     },
     {
       "id": 2,
-      "prompt": "Compare drawing issue rev B with rev C and tell me what changed.",
-      "expected_output": "Compares the two registers first (added, removed, revision or status changed, title changed) using pdf_register.py compare, then says plainly that a revision code shows that something changed, not what changed, and opens the changed sheets to report content changes with the areas not compared. States the comparison basis. Lists sheets that could not be compared.",
-      "files": []
+      "prompt": "Compare drawing issue rev B (folder evals/files/revB) with rev C (folder evals/files/revC) and tell me what changed. Rules: evals/files/rules.json.",
+      "expected_output": "Compares the two registers first (added, removed, revision or status changed, title changed) using pdf_register.py compare, then says plainly that a revision code shows that something changed, not what changed, and opens the changed sheets to report content changes with the areas not compared. States the comparison basis. Lists sheets that could not be compared. Fixture facts: S-202 removed, S-203 and S-206 added (S-206 without status), S-201 and S-204 changed B to C (S-204 plant rating 60 kW to 80 kW inside the sheet), S-205 unchanged.",
+      "files": [
+        "evals/files/revB",
+        "evals/files/revC",
+        "evals/files/rules.json"
+      ]
     },
     {
       "id": 3,
-      "prompt": "Extract the equipment schedule from the mechanical drawings in this folder: all fan coil units with tags, sizes and airflows.",
-      "expected_output": "Reads the schedule from the sheets and gives each value with the sheet number, revision and location on the sheet. Uses pdf_register.py titles or direct reading rather than guessing; states that a scanned sheet was read visually and asks for confirmation of critical values. Does not add equipment or values that are not on the drawings, and routes any quantity or selection decision to cost-estimate or equipment-selection.",
-      "files": []
+      "prompt": "Extract the equipment schedule from the mechanical drawings in evals/files/mech: all fan coil units with tags, sizes and airflows.",
+      "expected_output": "Reads the schedule from the sheets and gives each value with the sheet number, revision and location on the sheet. Uses pdf_register.py titles or direct reading rather than guessing; states that a scanned sheet was read visually and asks for confirmation of critical values. Does not add equipment or values that are not on the drawings, and routes any quantity or selection decision to cost-estimate or equipment-selection. Fixture facts: M-301 schedule lists FCU-01..04; M-101 plan shows FCU-03 at 900 m3/h against 800 in the schedule (conflict to raise, not resolve); scan_M-302.pdf is scanned and must be read visually.",
+      "files": [
+        "evals/files/mech"
+      ]
     },
     {
       "id": 4,
-      "prompt": "Is this package complete for a construction issue? The client's drawing list is attached.",
-      "expected_output": "Checks the package against the supplied drawing list: missing sheets by number and title, sheets at an earlier revision, superseded files, wrong status codes, file naming failures (deferring the standard to project-standards), and differences between the transmittal list and the folder. Refuses to judge completeness without the required list. Never renames or edits a file.",
-      "files": []
+      "prompt": "Is this package (folder evals/files/package) complete for a construction issue? The client's drawing list is evals/files/client_drawing_list.csv.",
+      "expected_output": "Checks the package against the supplied drawing list: missing sheets by number and title, sheets at an earlier revision, superseded files, wrong status codes, file naming failures (deferring the standard to project-standards), and differences between the transmittal list and the folder. Refuses to judge completeness without the required list. Never renames or edits a file. Fixture facts: M-105 missing; M-102 at rev B (list: C); M-103 status S1 (list: S3); M-104_old_A.pdf superseded by M-104_B.pdf; M-999 not on the list.",
+      "files": [
+        "evals/files/package",
+        "evals/files/client_drawing_list.csv"
+      ]
     }
   ]
 }

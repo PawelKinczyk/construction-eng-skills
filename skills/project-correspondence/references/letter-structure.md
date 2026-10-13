@@ -62,6 +62,7 @@ Condition of issue: <stated where relevant, for example "not for construction">
 Rules
 - State the purpose. An issue "for information" that is later built from is a classic dispute; label it.
 - List every sheet or file. A transmittal with "as discussed" and no list is not a transmittal.
+- For purpose "for approval" the transmittal always carries the line "Not for construction until approved" (in the document language, e.g. "Nie do realizacji do czasu zatwierdzenia"), in the condition of issue.
 - Keep the revision and status codes exactly as they are in the project standard.
 
 ## 5. Contractual notice

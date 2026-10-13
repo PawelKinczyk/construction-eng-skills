@@ -39,11 +39,11 @@ Python with `ifcopenshell` is required for everything here. There is no way to r
    ```
 2. **Counts.** By element type and by storey, with the schema stated. State whether IfcTypeObject (types) and occurrences are counted separately, and do not add them together.
 3. **Quantities.** Take them from IfcElementQuantity (Qto sets) where present, and say which quantity set and which quantity name was used. Where a quantity is missing, take it from the property set only if the user accepts that fallback, and say so. Never compute a quantity from geometry silently; if geometry is the only source, say that a geometry-based calculation is an approximation and needs the modelling assumptions.
-4. **Properties.** Report values per element or as a table for a type. Empty strings, missing properties and duplicated properties are findings, not noise: they break schedules, IDS checks and quantity takeoff.
+4. **Properties.** Report values per element or as a table for a type. Values are read from the occurrence and also from its type object (`IsTypedBy`, or `IfcRelDefinesByType` in IFC2X3); an occurrence value overrides the type value, and every row carries a `source` column (`occurrence` | `type`). Many exports put `FireRating`, `RatedPower` and similar on the type, so a type-blind read gives false "missing". `--no-type` switches the type lookup off; say which mode was used. Empty strings, missing properties and duplicated properties are findings, not noise: they break schedules, IDS checks and quantity takeoff.
 5. **Missing parameters.** Check against the supplied requirement list and report per element: element, type, storey, the missing property, and the rule it comes from. Group the result by rule as well as by element, because that is what the modeller has to fix.
 6. **Schedules.** Export the table the user needs, with the property names as columns and one row per element: element GUID, type, storey, name, tag, and the requested properties. State the source: model file, date, schema.
-7. **Comparison of two issues.** Compare by GUID: added, removed, changed properties. Report what the GUID comparison shows and state that a renamed or re-created element appears as a removal plus an addition even when the design did not change.
-8. **IDS validation.** Run the IDS file if `ifctester` is available and report the result per specification: passed, failed, with the failing elements. Without it, say the check could not run, and offer the manual check against the requirement list instead.
+7. **Comparison of two issues.** Compare by GUID: added, removed, changed attributes (Name/Tag/ObjectType/PredefinedType - property sets are not compared). Report what the GUID comparison shows and state that a renamed or re-created element appears as a removal plus an addition even when the design did not change. When more than 50 % of the old elements are removed the script prints a warning that GUIDs are not stable between independent exports; then report the removed+added counts and the fallback pair count (match by class + name + storey, a heuristic and labelled as one) before any statement about design changes.
+8. **IDS validation.** Run the IDS file if `ifctester` is available and report the result per specification: passed, failed, with the failing elements. Without it (`ids` exits with code 3), say plainly that no IDS validation was run, and offer the manual check against the requirement list instead; never present the `missing` result as an IDS result. `schedule` prints a source line (file, schema, units, tool version); quote it in the deliverable.
 
 ## 4. Verify
 
@@ -52,7 +52,8 @@ Python with `ifcopenshell` is required for everything here. There is no way to r
 - Counts: state the filter (type, storey, including or excluding types and spaces) and whether the count comes from occurrences or types.
 - Quantities: state the quantity set and name for each column. A quantity without its set name cannot be checked.
 - Missing values: report them; never fill, interpolate or copy a value from another element.
-- GUID comparison: state that GUIDs are stable only when the authoring tool preserves them; a re-export can change many GUIDs without any design change.
+- GUID comparison: state that GUIDs are stable only when the authoring tool preserves them; a re-export can change many GUIDs without any design change. Report the removed+added pair count and label the class + name + storey fallback as a heuristic.
+- Type-level property and quantity sets: state whether they were read (default) or switched off (`--no-type`), and which values came from the type.
 - Model quality findings trimmed to what matters: missing or empty properties, missing quantities, duplicate elements, elements outside any storey, unknown or proxy types.
 - Any number used for money or for a selection goes to `cost-estimate` or `equipment-selection` with its source, and is not used directly here.
 

@@ -11,6 +11,8 @@
 
 Always report `$INSUNITS` and the extents. Then check the extents: a 30 m building whose extents are 30 000 units is in millimetres; a 30 m building whose extents are 3 000 000 has a stray object or a wrongly scaled insert.
 
+The script reports two extents. The full extents include entities on off or frozen layers and attribute text, so they can be larger than what is plotted (a frozen-layer block with its attribute text sticks out beyond the walls). The "visible" extents use only entities on layers that are on and not frozen. If they differ, say why before quoting a size.
+
 ## 2. Model space, paper space, layouts
 
 - Counts default to model space, which is where design content sits.
@@ -55,7 +57,8 @@ What a file comparison can tell you:
 - layers added, removed, renamed, or changed in state;
 - entity count change per layer and per entity type;
 - block insert count change per block name;
-- attribute value changes for blocks whose insert count did not change;
+- block insert count change per block name and per layer (a block moved to another layer shows only in the per-layer count);
+- attribute value changes, matched by the `TAG` attribute of each insert (blocks without a `TAG` attribute are compared as sets of values; duplicate TAG values are paired in file order, so treat them as a finding rather than a change);
 - units and extents changes, which catch a rescaled or re-originated drawing.
 
 What it cannot tell you:

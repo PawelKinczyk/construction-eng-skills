@@ -58,6 +58,9 @@ Rules
 - Standard sets start with `Pset_` and carry common data (`Pset_FlowMoverCommon`, `Pset_DistributionFlowElementCommon`).
 - Custom sets (project or vendor) carry whatever the project adds, often with no consistency between disciplines; report their names, do not assume meaning.
 - PSets are attached through `IfcRelDefinesByProperties`, either to the occurrence or to the type. A value may sit on the type and be inherited by every occurrence; check both before reporting "missing".
+- `scripts/ifc_report.py` reads both. Type-level sets are `HasPropertySets` of the type object (`IfcPumpType`, `IfcAirTerminalType`, ...), reached from the occurrence by `IsTypedBy` (IFC4) or by an `IfcRelDefinesByType` inside `IsDefinedBy` (IFC2X3 - in IFC4 `IsDefinedBy` holds only `IfcRelDefinesByProperties`). Type-level quantity sets (`IfcElementQuantity`) are read the same way.
+- Inheritance: an occurrence value overrides the type value for the same set and property. Each row carries `source` = `occurrence` | `type`. Revit and ArchiCAD exports often put `FireRating`, `Pset_PumpTypeCommon` or `RatedPower` on the type only; a type-blind read reports them missing. `--no-type` restores the occurrence-only read, for comparison with a tool that does not follow types.
+- In a report, say when a value comes from the type; the modeller fixes it in a different place.
 - Multi-value properties and value types (label, length, boolean) exist: a boolean that reads "True" as a string is a reported finding, not a pass.
 - `IfcPropertySet` with no properties, empty strings, and duplicated property names are common model defects. Report them; they break downstream schedules.
 
@@ -81,6 +84,8 @@ Rules
 
 - Compare by `GlobalId` (GUID). IfcOpenShell can read the old and new files and report added, removed and changed elements.
 - GUIDs are stable only when the authoring tool preserves them through the edit. A re-export from a changed model, a rebuilt phase, or a different authoring software can change many GUIDs with no design change at all. Report the count of "removed plus added" pairs before calling them design changes.
+- `scripts/ifc_report.py compare` prints a warning when more than 50 % of the old elements have no GUID in the new file (GUIDs are not stable between independent exports), prints the removed and added counts, and offers a fallback: removed and added elements matched by class + name + storey. The fallback is a heuristic: elements renamed, moved to another storey or sharing a name (`P-01` twice) are mis-paired, so present it as "likely re-export", never as proof.
+- The "changed" list covers Name, Tag, ObjectType, PredefinedType and class only; property set values are not compared, so say "changed attributes", not "changed properties".
 - Compare properties element by element for the ones that matter (type, name, type object, pset values), not the whole file: whole-file comparison of a large model produces noise.
 - The comparison is evidence about the model. Whether a change is a design change is a project decision.
 

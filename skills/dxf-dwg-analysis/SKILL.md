@@ -38,7 +38,7 @@ Python with `ezdxf` is required for every analysis here. DWG files must first be
 2. **Layers.** List the layers with their state (on, off, frozen, locked) and the entity count on each. Compare with the project layer standard and report the differences as findings: layers not in the standard, standard layers missing, entities on the wrong layer where the file shows it (for example dimensions on a construction layer).
 3. **Blocks.** Count block references by name, and read the attributes of each insert (room number, tag, type). Give the counts per layer and per block name. State whether the file uses anonymous blocks (dimensions, hatches) which must be excluded from the count.
 4. **Text.** Extract text and mtext with the layer and position, filtered by the user's pattern. Text in a CAD file is often duplicated or on a layer that is off: report what is in the file, not what was plotted.
-5. **Revision comparison.** Compare the two files: layers added or removed, entity count change per layer, block count change per block name, and attribute changes where the block insert count is the same. Report a change to a layer count as a change, and say that the file cannot show what a line means - that reading needs the drawing.
+5. **Revision comparison.** Compare the two files: layers added or removed, entity count change per layer, block count change per block name and per layer, and attribute value changes matched by the `TAG` attribute (the diff command does this; blocks without a `TAG` attribute are compared as sets of values, so check them with `blocks --attributes` on both files). Report a change to a layer count as a change, and say that the file cannot show what a line means - that reading needs the drawing.
 6. **DWG.** Convert first, then run the same commands:
    ```
    # example, adjust the paths to the installed converter
@@ -49,7 +49,7 @@ Python with `ezdxf` is required for every analysis here. DWG files must first be
 ## 4. Verify
 
 - Units: read `$INSUNITS` and state it. If it is unset or wrong, say so; do not assume millimetres.
-- Extents: check for entities far outside the drawing area before trusting any area or length. Report them; they usually mean a stray object or an inserted drawing at the wrong scale.
+- Extents: check for entities far outside the drawing area before trusting any area or length. Report them; they usually mean a stray object or an inserted drawing at the wrong scale. The script prints full extents (which include off/frozen layers and attribute text) and the extents of visible layers only; explain any difference.
 - Counts: state the entity types counted, and whether paperspace is included (default: no).
 - Xrefs: list unresolved xrefs. A count without them is a count of part of the drawing.
 - Proxies and missing custom objects: report their count, because their content is not readable and the counts may be low.

@@ -41,19 +41,20 @@ Field detection is project-specific, so the script takes a JSON of regular expre
 ```json
 {
   "sheet_no": "\\b([A-Z]{1,3}-[0-9]{3,4})\\b",
+  "title": "\\bTITLE[:.]?\\s*([^\\n]{3,60})",
   "rev": "\\bRev[:.]?\\s*([A-Z0-9]{1,3})\\b",
-  "status": "\\bStatus[:.]?\\s*([A-Z0-9]{2})\\b",
+  "status": "\\bStatus[:.]?\\s*([A-Z0-9]{2,8})\\b",
   "date": "\\b([0-9]{2}[./-][0-9]{2}[./-][0-9]{4})\\b",
-  "scale": "\\b1:[0-9]{1,4}\\b",
-  "title_hint": "^.{0,60}$",
-  "page_text_chars": 4000
+  "scale": "\\b1:[0-9]{1,4}\\b"
 }
 ```
 
 Rules
+- Allowed keys: `sheet_no`, `title`, `rev`, `status`, `date`, `scale`; any other key is rejected (exit 2). Limit the status length to the codes the project uses (IFC, S2, TENDER).
+- Write each backslash twice in JSON (`\\b` in the file is the regex `\b`). Copied text with four backslashes matches nothing.
 - The first capture group is the value.
 - Patterns match on the whole first-page text (or the page text, with `--pages`). Nothing else is inferred.
-- A field with no match stays empty in the register and is marked `missing` in the note column. Never fill it from the file name or from another sheet.
+- A field with no match stays empty in the register and is marked `missing` in the note column. Never fill it from the file name or from another sheet. A rule that matches 0 of N sheets also prints a `WARNING` on stderr: treat it as a rules problem first (escaping, wording of the title block), not as a drawing problem.
 - Test the rules on a few sheets before scanning a whole set, and record which sheets they were tested on.
 
 ## 5. What extraction cannot do

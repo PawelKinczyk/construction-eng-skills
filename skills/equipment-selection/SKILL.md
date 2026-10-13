@@ -63,5 +63,6 @@ For several units of the same type (for example 12 fan coils), use one sheet wit
 
 - The engineer decides. This skill prepares and checks the selection; it does not approve it.
 - Never invent product data, model numbers or prices. Unknown means "to verify".
+- An "illustrative case" that uses a placeholder value (for example a 400 Pa unit pressure drop) must be labelled as a placeholder in the sheet, and the real value (unit drop from the data sheet) requested.
 - Prefer lower energy use when two options meet the requirements. Say so in the sheet.
 - Keep calculations reproducible: every number in the sheet comes from a script run, a user input or a cited source.

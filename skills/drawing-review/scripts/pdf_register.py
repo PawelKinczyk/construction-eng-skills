@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""PDF drawing set scan: sheet register, title block text, register comparison.
+r"""PDF drawing set scan: sheet register, title block text, register comparison.
 
 Standard library only, plus one optional text extractor:
   1. pypdf (pip install pypdf)      - preferred, gives text and page size
@@ -20,15 +20,19 @@ Field detection is project-specific, so nothing is guessed: the rules file gives
 expression per field and the first capture group is the value. A field with no match stays
 empty and is reported in the note column. Fields are never filled from the file name.
 
-rules.json:
+rules.json (copy as is; JSON needs a doubled backslash, so "\\b" means the regex \b):
 {
-  "sheet_no": "\\\\b([A-Z]{1,3}-[0-9]{3,4})\\\\b",
-  "title":    "\\\\bTITLE[:.]?\\\\s*([^\\\\n]{3,60})",
-  "rev":      "\\\\bRev[:.]?\\\\s*([A-Z0-9]{1,3})\\\\b",
-  "status":   "\\\\bStatus[:.]?\\\\s*([A-Z0-9]{2})\\\\b",
-  "date":     "\\\\b([0-9]{2}[./-][0-9]{2}[./-][0-9]{4})\\\\b",
-  "scale":    "\\\\b1:[0-9]{1,4}\\\\b"
+  "sheet_no": "\\b([A-Z]{1,3}-[0-9]{3,4})\\b",
+  "title":    "\\bTITLE[:.]?\\s*([^\\n]{3,60})",
+  "rev":      "\\bRev[:.]?\\s*([A-Z0-9]{1,3})\\b",
+  "status":   "\\bStatus[:.]?\\s*([A-Z0-9]{2,8})\\b",
+  "date":     "\\b([0-9]{2}[./-][0-9]{2}[./-][0-9]{4})\\b",
+  "scale":    "\\b1:[0-9]{1,4}\\b"
 }
+
+A rule that matches 0 of N sheets is printed as a warning on stderr: that is almost always
+a rules problem (escaping, wrong wording), not a drawing problem. Limit the status length to the
+codes the project uses (IFC, S2, TENDER).
 
 Scan columns: file, pages, page_size, sheet_no, title, rev, status, date, scale, note.
 Exit codes: 0 ok, 2 bad input, 3 missing dependency.
@@ -180,6 +184,11 @@ def cmd_scan(args):
     for path in iter_files(args.dir, args.recursive, args.pattern):
         row, _text = scan_file(path, rules, args.pages, extract)
         rows.append(row)
+    for field in FIELDS:
+        if rules.get(field) and rows and not any(r[field] for r in rows):
+            print(f"WARNING: rule '{field}' matched 0 of {len(rows)} sheets - check the rules "
+                  f"file (JSON escaping: every backslash doubled once, not twice; wording of the title block)",
+                  file=sys.stderr)
     if args.json:
         print(json.dumps({"extractor": extract[0], "count": len(rows), "rows": rows},
                          ensure_ascii=False, indent=2))
@@ -277,6 +286,9 @@ def main():
     except MissingDependency as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 3
+    except re.error as exc:
+        print(f"ERROR: invalid regular expression in rules file: {exc}", file=sys.stderr)
+        return 2
     except (ValueError, OSError, RuntimeError, json.JSONDecodeError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 2

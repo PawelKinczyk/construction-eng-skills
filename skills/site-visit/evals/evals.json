@@ -3,14 +3,18 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Jestem na budowie, mam 12 zdjęć i dyktowanie. Zrób raport z wizyty: skrzydło A izolacje, skrzydło B wykop przy kolizji.",
-      "expected_output": "Works with no scripts and no Python, reads the photos and the dictation, and produces the report structure from references/site-report-format.md: identification with weather and time, summary, present on site, progress with the source of each percentage, numbered observations with photo numbers, safety, quality and defects for punch-list, materials, instructions with written or verbal stated, follow-up items with owner and date, photo list, and what was not visited. Keeps observations separate from conclusions, marks estimated values as estimated, never invents a measurement or a person, and says the report number must be confirmed in the project register. Output in Polish.",
-      "files": ["../project-brief/examples/PROJECT.example.md"]
+      "prompt": "Jestem na budowie, mam 12 zdjęć i dyktowanie (plik evals/files/dyktowanie-wizyta-2026-10-12.txt, lista zdjęć w evals/files/zdjecia-manifest.md). Zrób raport z wizyty: skrzydło A izolacje, skrzydło B wykop przy kolizji.",
+      "expected_output": "Works with no scripts and no Python, reads the photos and the dictation, and produces the report structure from references/site-report-format.md: identification with weather and time, summary, present on site, progress with the source of each percentage, numbered observations with photo numbers, safety, quality and defects for punch-list, materials, instructions with written or verbal stated, follow-up items with owner and date, photo list, and what was not visited. Keeps observations separate from conclusions, marks estimated values as estimated, never invents a measurement or a person, and says the report number must be confirmed in the project register. Output in Polish. Asks at most 3 questions. Marks the A5 value as estimated and the A3 value as measured; attributes the 40 % to the foreman; records the open excavation with time 09:20 and who was told; says the area of level -1 and the roof were not visited.",
+      "files": [
+        "../project-brief/examples/PROJECT.example.md",
+        "evals/files/dyktowanie-wizyta-2026-10-12.txt",
+        "evals/files/zdjecia-manifest.md"
+      ]
     },
     {
       "id": 2,
       "prompt": "There is an open excavation with no barriers at the entrance. Write that up.",
-      "expected_output": "Records the safety observation with place, time and what was seen, names who was told on site and when, does not soften it because the report goes to the contractor, and does not speculate about consequences or blame anyone. States whether it was an imminent danger and whether it was reported to the person responsible. If the user gives no time or place, asks for them instead of writing a general remark.",
+      "expected_output": "Records the safety observation with place, time and what was seen, names who was told on site and when, does not soften it because the report goes to the contractor, and does not speculate about consequences or blame anyone. States whether it was an imminent danger and whether it was reported to the person responsible. If the user gives no time or place, asks for them instead of writing a general remark. When the danger is still present, the first sentence tells the user to inform the site manager now, before drafting.",
       "files": []
     },
     {
@@ -21,9 +25,12 @@
     },
     {
       "id": 4,
-      "prompt": "Turn my voice note from this morning's visit into a report I can send to the client today.",
-      "expected_output": "Produces the short form of the report from the dictation, keeps the client-facing tone factual with no blame, and lists what is missing for a complete report (time on site, who was present, weather, photo references) as 'not recorded' rather than filling it in. Notes that the .docx, the numbering from the register and the attachment of documents are desktop jobs, and that this report is not an instruction, a notice or an acceptance.",
-      "files": []
+      "prompt": "Oto transkrypcja mojej notatki głosowej z dzisiejszej wizyty (plik evals/files/transkrypcja-glosowa.txt): 'Byłem na budowie na poziomie zero w skrzydle A. Pion kanalizacji wymieniony, kierownik robót mówi że pozostało tylko uszczelnienie przepustów. Sprawdziłem trzy przepusty, dwa bez uszczelnienia, zdjęcia mam. Wspomniałem o tym brygadziście. Rano było zimno. Nie zdążyłem wejść na dach.' Zrób z tego raport, który mogę dziś wysłać do klienta.",
+      "expected_output": "Produces the short form of the report from the dictation, keeps the client-facing tone factual with no blame, and lists what is missing for a complete report (time on site, who was present, weather, photo references) as 'not recorded' rather than filling it in. Notes that the .docx, the numbering from the register and the attachment of documents are desktop jobs, and that this report is not an instruction, a notice or an acceptance. Asks at most 3 questions after the draft; the statement about the remaining work is attributed to the site manager, and the roof is listed as not visited.",
+      "files": [
+        "../project-brief/examples/PROJECT.example.md",
+        "evals/files/transkrypcja-glosowa.txt"
+      ]
     }
   ]
 }

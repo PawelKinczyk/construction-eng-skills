@@ -22,7 +22,7 @@
     {
       "id": 4,
       "prompt": "Our budget is 1.25 mln zł at 2026 prices but the works will be done in 2028. What should I allow for?",
-      "expected_output": "Uses estimate_calc.py escalation with a stated index and its source (not an invented rate), keeps escalation separate from contingency, and uses range for the estimate class. Asks whether the contract has an indexation clause. Marks the index value 'to verify' if no source is given, and does not present an index from memory as a fact.",
+      "expected_output": "Does not run escalation with placeholder percentages: asks for the index (with its source) and the period first, and whether the contract has an indexation clause. If the user wants an illustration, labels it 'illustration, not a forecast, rate to verify'. Keeps escalation separate from contingency and uses range for the estimate class. Marks the index value 'to verify' if no source is given.",
       "files": []
     }
   ]

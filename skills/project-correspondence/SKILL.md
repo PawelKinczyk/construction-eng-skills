@@ -20,10 +20,10 @@ The skill drafts and registers. The responsible person signs and sends. This is 
 ## 2. Collect inputs
 
 1. **What and why.** The subject in one sentence, the outcome wanted from the reader, and the reason it is being sent now (not earlier or later). If the reason is a deadline, get the contract clause and the date it runs from.
-2. **Facts.** Dates, events, documents with revision, quantities, costs, and who said what in which meeting. Every fact must be checkable. Ask for the missing ones; do not fill a fact from memory.
+2. **Facts.** Dates, events, documents with revision, quantities, costs, and who said what in which meeting. Every fact must be checkable. Ask for the missing ones; do not fill a fact from memory. Missing facts never mean questions only: still output a draft with visible placeholders such as `[clause - to verify]` or `[DO UZUPELNIENIA]`, followed by the questions.
 3. **Contractual basis.** The clause, the contract form, and the notice period that applies. State the clause as it appears in the contract documents supplied.
 4. **Reference chain.** Earlier letters, RFIs and minutes this document continues or answers. Get their numbers. A letter that answers an RFI quotes its number.
-5. **Register.** Open the project register, or create one from `references/letter-structure.md`, and take the next number from it.
+5. **Register.** Open the project register and take the next number from it. When no register exists, offer `python scripts/corr_log.py init --file register.json --prefix <project prefix>` (ask for the prefix) and then number from it.
 
 ## 3. Work
 
@@ -44,7 +44,7 @@ The skill drafts and registers. The responsible person signs and sends. This is 
    - what is being reserved, not threatened.
 4. **State the reservation of rights** whenever the document reports an event that may lead to time or money: state the event, the notice given under which clause, and that rights are reserved, without quantifying what is not yet known.
 5. **Check the deadlines.** For any notice under the contract, verify the period and the trigger from the contract documents, and send well inside the period. Record the sending date and the delivery method in the register.
-6. **Follow up.** From the register, list what is unanswered and approaching its deadline, and draft the reminder. Reminders quote the original number and date.
+6. **Follow up.** From the register, list what is unanswered and approaching its deadline, and draft the reminder. Reminders quote the original number and date. For a reminder request, draft one reminder per overdue item from the register immediately (signatory as a placeholder, number, date and consequence taken from the register), and put the follow-up questions after the drafts, never instead of them.
 
 ## 4. Verify
 

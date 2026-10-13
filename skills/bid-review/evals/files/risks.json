@@ -1,0 +1,125 @@
+{
+  "currency": "PLN",
+  "risks": [
+    {
+      "id": "R1",
+      "name": "Niezgodności dokumentacji z inwentaryzacją",
+      "category": "design",
+      "probability": 0.5,
+      "impact": 420000,
+      "contract": "wykonawca",
+      "treatment": "price",
+      "source": "SWZ rozdz. 12"
+    },
+    {
+      "id": "R2",
+      "name": "Brak waloryzacji przy 11 mies. realizacji",
+      "category": "price",
+      "probability": 0.4,
+      "impact": 260000,
+      "contract": "wykonawca",
+      "treatment": "price",
+      "source": "wzór umowy § 4 ust. 2"
+    },
+    {
+      "id": "R3",
+      "name": "Kary umowne bez limitu",
+      "category": "contract",
+      "probability": 0.15,
+      "impact": 900000,
+      "contract": "wykonawca",
+      "treatment": "qualify",
+      "source": "wzór umowy § 6 ust. 4"
+    },
+    {
+      "id": "R4",
+      "name": "Przerwy w pracy szpitala, koszty zamawiającego",
+      "category": "site",
+      "probability": 0.25,
+      "impact": 300000,
+      "contract": "wykonawca",
+      "treatment": "price",
+      "source": "wzór umowy § 13 ust. 3"
+    },
+    {
+      "id": "R5",
+      "name": "Dodatkowe etapy bez zmiany wynagrodzenia",
+      "category": "scope",
+      "probability": 0.3,
+      "impact": 350000,
+      "contract": "wykonawca",
+      "treatment": "ask",
+      "source": "wzór umowy § 13 ust. 3"
+    },
+    {
+      "id": "R6",
+      "name": "Zatrzymanie 10% przez 36 miesięcy",
+      "category": "finance",
+      "probability": 0.9,
+      "impact": 60000,
+      "contract": "wykonawca",
+      "treatment": "price",
+      "source": "wzór umowy § 9 ust. 1"
+    },
+    {
+      "id": "R7",
+      "name": "Gwarancja 60 miesięcy",
+      "category": "warranty",
+      "probability": 0.2,
+      "impact": 250000,
+      "contract": "wykonawca",
+      "treatment": "insure",
+      "source": "wzór umowy § 11 ust. 1"
+    },
+    {
+      "id": "R8",
+      "name": "Azbest w istniejących izolacjach",
+      "category": "site",
+      "probability": 0.1,
+      "impact": 500000,
+      "contract": "zamawiający/wykonawca",
+      "treatment": "ask",
+      "source": "brak inwentaryzacji azbestu w SWZ"
+    },
+    {
+      "id": "R9",
+      "name": "Przedmiar i dokumentacja niedołączone",
+      "category": "scope",
+      "probability": 0.6,
+      "impact": 200000,
+      "contract": "wykonawca",
+      "treatment": "ask",
+      "source": "SWZ rozdz. 3, załączniki 1 i 2"
+    },
+    {
+      "id": "R10",
+      "name": "Wzrost cen rur i armatury",
+      "category": "price",
+      "probability": 0.35,
+      "impact": 180000,
+      "contract": "wykonawca",
+      "treatment": "price",
+      "source": "wzór umowy § 4 ust. 2"
+    },
+    {
+      "id": "R11",
+      "name": "Opóźnienie przekazania frontów robót",
+      "category": "programme",
+      "probability": null,
+      "impact": 150000,
+      "contract": "zamawiający",
+      "treatment": "ask",
+      "source": "SWZ rozdz. 5"
+    },
+    {
+      "id": "R12",
+      "name": "Wymagania epidemiologiczne (strefy czyste)",
+      "category": "hse",
+      "probability": 0.3,
+      "impact": null,
+      "contract": "wykonawca",
+      "treatment": "ask",
+      "source": "SWZ rozdz. 3"
+    }
+  ]
+}

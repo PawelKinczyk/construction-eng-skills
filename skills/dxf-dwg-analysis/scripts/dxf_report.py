@@ -17,9 +17,12 @@ Commands:
            --file A-101.dxf [--attributes] [--csv blocks.csv]
   text     TEXT and MTEXT with layer and position
            --file A-101.dxf [--pattern "SAP|DSO"] [--include-off] [--json]
-  diff     compare two files: layers, entity counts, block counts, units, extents
+  diff     compare two files: layers, entity counts, block counts (also per layer),
+           attribute values by TAG, units, extents
            --old revB.dxf --new revC.dxf [--json]
 
+Extents: the full extents include entities on off/frozen layers and attribute text; the
+"visible" extents use entities on layers that are on and not frozen.
 Counts are model space by default; paper space is reported separately as layout content.
 Units come from $INSUNITS and are reported, never assumed.
 """
@@ -62,20 +65,56 @@ def units_name(doc):
     return f"{UNITS.get(code, 'unknown')} (code {code})"
 
 
-def extents(doc):
-    try:
-        from ezdxf import bbox
-    except ImportError:
-        return None
-    try:
-        box = bbox.extents(doc.modelspace())
-    except Exception:
-        return None
+def _box_dict(box):
     if not box.has_data:
         return None
     lo, hi = box.extmin, box.extmax
     return {"min": [round(lo.x, 2), round(lo.y, 2)], "max": [round(hi.x, 2), round(hi.y, 2)],
             "size": [round(hi.x - lo.x, 2), round(hi.y - lo.y, 2)]}
+
+
+def extents(doc):
+    """Full extents of model space plus 'visible': entities on layers that are on and thawed."""
+    try:
+        from ezdxf import bbox
+    except ImportError:
+        return None
+    msp = doc.modelspace()
+    try:
+        result = _box_dict(bbox.extents(msp))
+    except Exception:
+        return None
+    if result is None:
+        return None
+    hidden = {layer.dxf.name for layer in doc.layers if layer.is_off() or layer.is_frozen()}
+    try:
+        visible = [e for e in msp if e.dxf.layer not in hidden]
+        result["visible"] = _box_dict(bbox.extents(visible)) if visible else None
+    except Exception:
+        result["visible"] = None
+    result["hidden_layers"] = sorted(hidden)
+    return result
+
+
+EXTENTS_NOTE = ("Note: full extents include entities on off/frozen layers and attribute text, "
+                "so they can be larger than the plotted drawing. 'visible' uses only layers "
+                "that are on and not frozen.")
+
+
+def print_extents(label, ext):
+    if not ext:
+        print(f"{label}: not available (no readable entities, or ezdxf.bbox missing)")
+        return
+    size = ext["size"]
+    print(f"{label}: min {ext['min']}  max {ext['max']}  size {size[0]} x {size[1]}")
+    vis = ext.get("visible")
+    if vis and vis["size"] != size:
+        print(f"{label} (visible layers only): min {vis['min']}  max {vis['max']}  "
+              f"size {vis['size'][0]} x {vis['size'][1]}")
+    elif vis is None and ext.get("hidden_layers"):
+        print(f"{label} (visible layers only): no entities on visible layers")
+    if ext.get("hidden_layers"):
+        print("  off/frozen layers: " + ", ".join(ext["hidden_layers"]))
 
 
 def layer_counts(msp):
@@ -114,15 +153,13 @@ def cmd_summary(args):
         return
     print(f"== DXF summary ==  {payload['file']}   ezdxf {payload['ezdxf']}")
     print(f"units: {payload['units']}")
+    print_extents("extents", payload["extents"])
     if payload["extents"]:
+        print("  " + EXTENTS_NOTE)
         size = payload["extents"]["size"]
-        print(f"extents: min {payload['extents']['min']}  max {payload['extents']['max']}  "
-              f"size {size[0]} x {size[1]}")
         if max(size) > 10000 and "millimet" not in payload["units"]:
             print("  WARNING: extents are large for the stated units. Check $INSUNITS and look "
                   "for stray entities before using any length or area.")
-    else:
-        print("extents: not available (no readable entities, or ezdxf.bbox missing)")
     print(f"model space: {payload['modelspace_entities']} entities, "
           f"{payload['block_inserts']} block inserts "
           f"({payload['anonymous_block_inserts']} anonymous, excluded from symbol counts)")
@@ -234,7 +271,58 @@ def file_facts(path):
     return {"file": Path(path).name, "units": units_name(doc), "extents": extents(doc),
             "layer_counts": layer_counts(msp),
             "type_counts": Counter(entity.dxftype() for entity in msp),
-            "block_counts": block_insert_counts(msp)}
+            "block_counts": block_insert_counts(msp),
+            "block_layer_counts": Counter((i.dxf.name, i.dxf.layer) for i in msp.query("INSERT")),
+            "attrs": insert_attributes(msp)}
+
+
+def insert_attributes(msp):
+    """One dict per INSERT that has attributes: block, layer, attrs {tag: text}."""
+    rows = []
+    for insert in msp.query("INSERT"):
+        if insert.attribs:
+            rows.append({"block": insert.dxf.name, "layer": insert.dxf.layer,
+                         "attrs": {a.dxf.tag: a.dxf.text for a in insert.attribs}})
+    return rows
+
+
+def compare_attributes(old_rows, new_rows):
+    """Compare attribute values by TAG. Inserts are matched by (block, value of the TAG
+    attribute) when they carry one; the rest are compared as sets of (block, attribute values)."""
+    def split(rows):
+        keyed, rest = {}, []
+        for row in rows:
+            ident = {k.upper(): v for k, v in row["attrs"].items()}.get("TAG", "")
+            if ident:
+                keyed.setdefault((row["block"], ident), []).append(row)
+            else:
+                rest.append(row)
+        return keyed, rest
+
+    old_keyed, old_rest = split(old_rows)
+    new_keyed, new_rest = split(new_rows)
+    changes = []
+    for key in sorted(set(old_keyed) & set(new_keyed)):
+        for before, after in zip(old_keyed[key], new_keyed[key]):
+            for tag in sorted(set(before["attrs"]) | set(after["attrs"])):
+                v0, v1 = before["attrs"].get(tag), after["attrs"].get(tag)
+                if v0 != v1:
+                    changes.append({"block": key[0], "id": key[1], "attribute": tag,
+                                    "old": v0, "new": v1})
+            if before["layer"] != after["layer"]:
+                changes.append({"block": key[0], "id": key[1], "attribute": "(layer)",
+                                "old": before["layer"], "new": after["layer"]})
+    added = sorted(f"{k[0]} TAG={k[1]}" + (f" x{len(v) - len(old_keyed.get(k, []))}" if k in old_keyed else "")
+                   for k, v in new_keyed.items() if k not in old_keyed or len(v) > len(old_keyed[k]))
+    removed = sorted(f"{k[0]} TAG={k[1]}" + (f" x{len(v) - len(new_keyed.get(k, []))}" if k in new_keyed else "")
+                     for k, v in old_keyed.items() if k not in new_keyed or len(v) > len(new_keyed[k]))
+    def sig(row):
+        return (row["block"], tuple(sorted(row["attrs"].items())))
+    c_old, c_new = Counter(sig(r) for r in old_rest), Counter(sig(r) for r in new_rest)
+    untagged_added = [f"{b} {dict(a)}" for (b, a), n in sorted((c_new - c_old).items())]
+    untagged_removed = [f"{b} {dict(a)}" for (b, a), n in sorted((c_old - c_new).items())]
+    return {"changed": changes, "added": added, "removed": removed,
+            "untagged_added": untagged_added, "untagged_removed": untagged_removed}
 
 
 def cmd_diff(args):
@@ -249,6 +337,12 @@ def cmd_diff(args):
     block_changes = [{"block": name, "old": old["block_counts"][name], "new": new["block_counts"][name]}
                      for name in sorted(set(old["block_counts"]) & set(new["block_counts"]))
                      if old["block_counts"][name] != new["block_counts"][name]]
+    layer_block_changes = [
+        {"block": k[0], "layer": k[1], "old": old["block_layer_counts"].get(k, 0),
+         "new": new["block_layer_counts"].get(k, 0)}
+        for k in sorted(set(old["block_layer_counts"]) | set(new["block_layer_counts"]))
+        if old["block_layer_counts"].get(k, 0) != new["block_layer_counts"].get(k, 0)]
+    attribute_changes = compare_attributes(old["attrs"], new["attrs"])
     payload = {"old": {"file": old["file"], "units": old["units"], "extents": old["extents"]},
                "new": {"file": new["file"], "units": new["units"], "extents": new["extents"]},
                "units_changed": old["units"] != new["units"],
@@ -256,6 +350,8 @@ def cmd_diff(args):
                "layer_changes": layer_changes,
                "blocks_added": blocks_added, "blocks_removed": blocks_removed,
                "block_changes": block_changes,
+               "block_layer_changes": layer_block_changes,
+               "attribute_changes": attribute_changes,
                "entity_type_changes": [{"type": t, "old": old["type_counts"].get(t, 0),
                                         "new": new["type_counts"].get(t, 0)}
                                        for t in sorted(set(old["type_counts"]) | set(new["type_counts"]))
@@ -266,8 +362,9 @@ def cmd_diff(args):
     print(f"== DXF comparison ==  {old['file']} -> {new['file']}")
     print(f"units: {old['units']} -> {new['units']}"
           + ("   WARNING: units changed" if payload["units_changed"] else ""))
-    print(f"extents old: {old['extents']}")
-    print(f"extents new: {new['extents']}")
+    print_extents("extents old", old["extents"])
+    print_extents("extents new", new["extents"])
+    print(EXTENTS_NOTE)
     print(f"\nLayers added ({len(layers_added)}): " + (", ".join(layers_added) or "-"))
     print(f"Layers removed ({len(layers_removed)}): " + (", ".join(layers_removed) or "-"))
     print(f"Layer entity count changes ({len(layer_changes)}):")
@@ -278,6 +375,21 @@ def cmd_diff(args):
     print(f"Block count changes ({len(block_changes)}):")
     for row in block_changes:
         print(f"  {row['block']:<38} {row['old']:>6} -> {row['new']:>6}")
+    print(f"Block count changes per layer ({len(layer_block_changes)}):")
+    for row in layer_block_changes:
+        print(f"  {row['block']:<24} {row['layer']:<22} {row['old']:>4} -> {row['new']:>4}")
+    ac = attribute_changes
+    print(f"\nAttribute value changes by TAG ({len(ac['changed'])}):")
+    for row in ac["changed"]:
+        print(f"  {row['block']} TAG={row['id']}: {row['attribute']} {row['old']!r} -> {row['new']!r}")
+    print(f"Attributed inserts only in new ({len(ac['added'])}): " + ("; ".join(ac["added"]) or "-"))
+    print(f"Attributed inserts only in old ({len(ac['removed'])}): " + ("; ".join(ac["removed"]) or "-"))
+    if ac["untagged_added"] or ac["untagged_removed"]:
+        print("Inserts without a TAG value, compared as sets - only in new: "
+              + ("; ".join(ac["untagged_added"]) or "-"))
+        print("  only in old: " + ("; ".join(ac["untagged_removed"]) or "-"))
+    print("Note: attributes are matched on the TAG attribute; a block without a TAG attribute "
+          "is compared as a set of values. Duplicate TAG values are paired in file order.")
     print(f"\nEntity type changes ({len(payload['entity_type_changes'])}):")
     for row in payload["entity_type_changes"][:15]:
         print(f"  {row['type']:<24} {row['old']:>6} -> {row['new']:>6}")

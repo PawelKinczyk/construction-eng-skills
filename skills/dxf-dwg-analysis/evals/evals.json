@@ -3,27 +3,38 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Policz klimakonwektory i inne bloki w tym pliku DXF i sprawdź jednostki oraz zasięg.",
-      "expected_output": "Runs dxf_report.py summary first and reports units ($INSUNITS) and extents before any count, warning about stray entities that stretch the extents. Then blocks with --attributes for the counts and the attribute values, stating that inserts are counted (not symbols on a plot), that anonymous blocks are excluded, and quoting empty attribute values as findings. Does not take the count as an order quantity: routes it to equipment-selection or cost-estimate after confirmation. Output in Polish.",
-      "files": ["../project-brief/examples/PROJECT.example.md"]
+      "prompt": "Policz klimakonwektory i inne bloki w pliku evals/files/p1_plan.dxf i sprawdź jednostki oraz zasięg.",
+      "expected_output": "Runs dxf_report.py summary first and reports units ($INSUNITS) and extents before any count, explaining that the full extents (35.67 x 20.94 m) are stretched by a frozen-layer insert and its attribute text, while the visible layers give 30 x 20.94 m. Then blocks with --attributes for the counts and the attribute values, stating that inserts are counted (not symbols on a plot), that anonymous blocks are excluded, and quoting empty attribute values as findings. Does not take the count as an order quantity: routes it to equipment-selection or cost-estimate after confirmation. Output in Polish. Fixture facts: metres; 13 inserts (FCU-4PIPE 5 = 4 on M-HVAC-FCU plus 1 on frozen M-HVAC-FCU-OPT, reported separately; DIFFUSER-600 6; VAV-BOX 2); FCU-03 has an empty FLOW; diffuser tag D-03 is duplicated.",
+      "files": [
+        "../project-brief/examples/PROJECT.example.md",
+        "evals/files/p1_plan.dxf"
+      ]
     },
     {
       "id": 2,
-      "prompt": "Compare rev B and rev C of the CAD file and tell me what changed.",
-      "expected_output": "Runs dxf_report.py diff, reports layers, entity counts, block counts, units and extents changes, and states plainly that a file comparison shows what changed in the file, not what it means - a count change can be a deleted construction line or a duplicated block. Requires a drawing reading for the design meaning and lists what was not compared (paper space, unresolved xrefs).",
-      "files": []
+      "prompt": "Compare rev B (evals/files/A-101_revB.dxf) and rev C (evals/files/A-101_revC.dxf) of the CAD file and tell me what changed.",
+      "expected_output": "Runs dxf_report.py diff, reports layers, entity counts, block counts, units and extents changes, and states plainly that a file comparison shows what changed in the file, not what it means - a count change can be a deleted construction line or a duplicated block. Requires a drawing reading for the design meaning and lists what was not compared (paper space, unresolved xrefs). Fixture facts: rev B has a stray line to (900, 900) and a third wall line (A-WALL 4 to 2 entities); layer M-HVAC-FCU-OPT removed; FCU-04 added; FCU-03 FLOW empty to 500 (attribute comparison by TAG); diffuser D-07 added; per-layer block counts also reported. The script does not compare paper space or xrefs.",
+      "files": [
+        "evals/files/A-101_revB.dxf",
+        "evals/files/A-101_revC.dxf"
+      ]
     },
     {
       "id": 3,
-      "prompt": "I have a DWG. What is in it - how many sprinklers and which layers?",
-      "expected_output": "Says DWG is not read directly and explains the conversion with the ODA File Converter (copy, not the original; record the output format and converter version in the report), or asks for a DXF export. Then runs layers and blocks on the DXF. Never guesses at DWG content and never converts in place.",
-      "files": []
+      "prompt": "I have a DWG (evals/files/sample_plan.dwg). What is in it - how many sprinklers and which layers?",
+      "expected_output": "Says DWG is not read directly and explains the conversion with the ODA File Converter (copy, not the original; record the output format and converter version in the report), or asks for a DXF export. Then runs layers and blocks on the DXF. Never guesses at DWG content and never converts in place. The fixture is a stub, not a real DWG: the script must exit with code 3 and the agent must not claim any content.",
+      "files": [
+        "evals/files/sample_plan.dwg"
+      ]
     },
     {
       "id": 4,
-      "prompt": "Check the layer names in this DXF against our project standard and list the layers with all their entities.",
-      "expected_output": "Runs dxf_report.py layers, reports each layer with state and entity count, and compares the names with the project standard, deferring the compliance verdict to project-standards. Reports entities on layers not in the standard, standard layers that are empty, and entities on layer 0, and states which layers were off or frozen. Does not rename or edit anything.",
-      "files": []
+      "prompt": "Check the layer names in evals/files/p1_plan.dxf against our project standard (evals/files/PROJECT.md) and list the layers with all their entities.",
+      "expected_output": "Runs dxf_report.py layers, reports each layer with state and entity count, and compares the names with the project standard, deferring the compliance verdict to project-standards. Reports entities on layers not in the standard, standard layers that are empty, and entities on layer 0, and states which layers were off or frozen. Does not rename or edit anything. Fixture facts: 8 layers; Dimensions (1 entity) and M-HVAC-FCU-OPT (1 entity, frozen) are not in the standard; A-DIMS and M-HVAC-PIPE from the standard are absent from the file; layer 0 and Defpoints are empty.",
+      "files": [
+        "evals/files/p1_plan.dxf",
+        "evals/files/PROJECT.md"
+      ]
     }
   ]
 }

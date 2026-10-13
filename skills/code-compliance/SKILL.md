@@ -12,6 +12,7 @@ Goal: a compliance checklist where every requirement has an exact, checkable sou
 - Read `PROJECT.md`: jurisdiction, location, phase, building type, disciplines, role, watch-outs.
 - No `PROJECT.md`: offer `project-brief`. If declined, ask for country, building type, discipline and the permit application date.
 - Load `references/shared/jurisdictions/<jurisdiction>.md` (and `eu.md` for EU member states). Use only its "Official legal sources" for law.
+- If the jurisdiction file says `Status: skeleton`, tell the user in the answer, build the list from the official sources only, and mark every item taken from that file TO VERIFY.
 - Load `references/shared/disciplines/<discipline>.md`, section "Compliance topics".
 
 ## 2. Collect inputs
@@ -31,6 +32,7 @@ Goal: a compliance checklist where every requirement has an exact, checkable sou
    - Law and regulations: read the current text on an official government source from the jurisdiction file. Cite act, date, article or paragraph, and the consolidated text or journal reference you read.
    - Standards: cite number, edition and clause. Do not quote paid standard text. Use the value only when the user provides the standard or the law itself states the value.
    - If you cannot read the source, the requirement is TO VERIFY. Do not fill it from memory.
+   - If an official legal site blocks automated fetching (for example the ISAP human-verification page), try the official journal PDF on an official domain from the jurisdiction file. If that fails, ask the user to paste the clause or the consolidated text. The requirement stays TO VERIFY meanwhile.
 3. **Compare.** For each requirement: the required value, the design value with its source (drawing, page, calculation), and the result.
 4. **Explain failures.** For each FAIL: what is wrong, by how much, and one or two ways to fix it. Do not redesign; propose.
 5. **Conflicts.** When two sources conflict, apply the hierarchy from the jurisdiction file and say which one wins and why.
@@ -41,7 +43,7 @@ Goal: a compliance checklist where every requirement has an exact, checkable sou
 - No legal source outside the official government domains in the jurisdiction file.
 - No invented paragraph numbers. If you are not sure of the exact paragraph, cite the chapter and mark TO VERIFY.
 - The regulation edition matches the project date.
-- Results use only the four values: OK, FAIL, TO VERIFY, NOT APPLICABLE.
+- Results use only the four values: OK, FAIL, TO VERIFY, NOT APPLICABLE. In the deliverable they are shown with a label in `deliverable_language` (see section 5).
 
 ## 5. Output
 
@@ -49,7 +51,7 @@ Write in `deliverable_language` from `PROJECT.md`. Section headings in that lang
 
 1. **Summary**: scope, regulation editions used, counts per result, the most serious FAIL items.
 2. **Basis**: building classification, project date used for edition choice, documents checked (with revisions).
-3. **Checklist**: table.
+3. **Checklist**: table. The four result values stay as codes, shown with a label in `deliverable_language`, e.g. pl: OK, NIEZGODNE (FAIL), DO WERYFIKACJI (TO VERIFY), NIE DOTYCZY (NOT APPLICABLE). Keep all 8 columns.
 
    | # | Topic | Requirement | Source | Design value | Design source | Result | Note / fix |
    |---|---|---|---|---|---|---|---|

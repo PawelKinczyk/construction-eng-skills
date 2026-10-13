@@ -1,0 +1,121 @@
+{
+  "project": "Biurowiec Zabłocie B2",
+  "entries": [
+    {
+      "id": "A-001",
+      "item": "2.1",
+      "action": "Przekazać rzut kanalizacji podposadzkowej",
+      "owner": "Zamawiający / J. Kowalski",
+      "due": "2026-10-05",
+      "status": "open",
+      "raised": "2026-008",
+      "note": "",
+      "source": "B2-RFI-001",
+      "carried_to": ""
+    },
+    {
+      "id": "A-002",
+      "item": "3.2",
+      "action": "Przedstawić harmonogram dostaw central wentylacyjnych",
+      "owner": "Wykonawca generalny / K. Adamczyk",
+      "due": "2026-09-30",
+      "status": "done",
+      "raised": "2026-008",
+      "note": "harmonogram przekazany 29.09.2026, pismo GC-71/2026",
+      "source": "B2-LET-004",
+      "carried_to": ""
+    },
+    {
+      "id": "A-003",
+      "item": "2.4",
+      "action": "Potwierdzić rozstaw podwieszeń przewodów w korytarzu",
+      "owner": "Wykonawca / P. Zieliński",
+      "due": "2026-10-02",
+      "status": "done",
+      "raised": "2026-009",
+      "note": "",
+      "source": "specyfikacja t. 3 p. 4.7",
+      "carried_to": ""
+    },
+    {
+      "id": "A-004",
+      "item": "2.2",
+      "action": "Odpowiedzieć na pytanie o zakres badań bakteriologicznych",
+      "owner": "Zamawiający / J. Kowalski",
+      "due": "2026-10-09",
+      "status": "open",
+      "raised": "2026-009",
+      "note": "",
+      "source": "B2-RFI-004",
+      "carried_to": ""
+    },
+    {
+      "id": "A-005",
+      "item": "2.3",
+      "action": "Uzupełnić moc wężownicy w karcie zasobnika",
+      "owner": "Projektant / A. Nowak",
+      "due": "2026-10-08",
+      "status": "open",
+      "raised": "2026-010",
+      "note": "",
+      "source": "karta zasobnika ZS-2",
+      "carried_to": ""
+    },
+    {
+      "id": "A-006",
+      "item": "2.5",
+      "action": "Przekazać zestawienie klimakonwektorów poziomu 1",
+      "owner": "Projektant / A. Nowak",
+      "due": "2026-10-16",
+      "status": "open",
+      "raised": "2026-010",
+      "note": "",
+      "source": "B2-RFI-006",
+      "carried_to": ""
+    },
+    {
+      "id": "A-007",
+      "item": "2.6",
+      "action": "Zamówić rury stalowe DN 50 do pionu W2",
+      "owner": "Wykonawca / P. Zieliński",
+      "due": "2026-10-23",
+      "status": "open",
+      "raised": "2026-010",
+      "note": "",
+      "source": "zamówienie wewnętrzne",
+      "carried_to": ""
+    },
+    {
+      "id": "A-008",
+      "item": "2.7",
+      "action": "Uzgodnić z gestorem termin odcięcia ciepła",
+      "owner": "Wykonawca generalny / K. Adamczyk",
+      "due": "2026-10-19",
+      "status": "carried",
+      "raised": "2026-009",
+      "note": "",
+      "source": "pismo GC-77/2026",
+      "carried_to": "2026-010"
+    }
+  ],
+  "decisions": [
+    {
+      "id": "D-001",
+      "date": "2026-10-05",
+      "meeting": "2026-010",
+      "decision": "Chłodzenie VRF zamiast wody lodowej w skrzydle A",
+      "by": "Zamawiający / J. Kowalski",
+      "affects": "design",
+      "reference": "protokół 2026-010 pkt 3.1"
+    },
+    {
+      "id": "D-002",
+      "date": "2026-10-05",
+      "meeting": "2026-010",
+      "decision": "Wstrzymanie robót ziemnych w osi C-D do czasu rysunku przekładki",
+      "by": "Inżynier kontraktu / M. Wiśniewski",
+      "affects": "programme",
+      "reference": "B2-NOT-001"
+    }
+  ]
+}

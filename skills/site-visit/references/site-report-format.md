@@ -74,7 +74,7 @@ Record what was seen, per area and time:
 
 Rules
 - A safety observation states place, time and what was seen. No blame, no adjectives, no speculation about consequences.
-- A serious or imminent danger is reported to the person responsible on site at the time, and the report says who was told and when.
+- A serious or imminent danger is reported to the person responsible on site at the time, and the report says who was told and when. If the danger is still present, the agent's first sentence tells the user to inform the person responsible on site (the site manager) now, before any drafting; the report is not the notification. Record who and when once known, otherwise "not recorded".
 - Never soften a safety observation because the report goes to the contractor.
 
 ## 5. Quality and defects

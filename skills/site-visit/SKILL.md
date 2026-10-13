@@ -19,7 +19,7 @@ This skill is built for a phone: no scripts, no files to process. The agent read
 
 ## 2. Collect inputs
 
-Ask for these in one short message (a phone user will not answer a long list):
+Draft first, then ask. Ask at most 3 questions per message (a phone user will not answer a long list), the minimum needed for the report; everything else becomes "not recorded" ("nie zarejestrowano"). The items below are what a complete report needs, not a questionnaire:
 
 1. **Visit facts**: date, time on site, weather (dry or rain, temperature if relevant), who was present, purpose (routine visit, inspection, handover, incident).
 2. **Photos**: in batches, with the area or the level they show. Photos carry date and time in most phone cameras; do not retype what the photo shows, describe what it means.
@@ -28,7 +28,7 @@ Ask for these in one short message (a phone user will not answer a long list):
 5. **What was agreed or instructed on site**: by whom, to whom, and whether it was written down.
 6. **Whether the report goes to someone**: the client, the authority, the insurer, or the office file. That decides the tone and the amount of background.
 
-Missing inputs are named in the report as "not recorded", never filled in.
+Missing inputs are named in the report as "not recorded", never filled in. When there is almost no data (for example a voice note not yet supplied), show the short-form skeleton with every field "not recorded" together with the questions, and state that the site report is not an instruction, a notice or an acceptance.
 
 ## 3. Work
 
@@ -75,6 +75,7 @@ Write in `deliverable_language` from `PROJECT.md`. Markdown by default (readable
 ## Rules
 
 - Record, do not judge. The report states what was there; the decision about consequences belongs to the contract manager, the designer or the authority.
+- Imminent danger: when a serious or imminent danger is observed, first tell the user at once to inform the person responsible on site (the site manager), before anything else; the report is not the notification. Record who was told and when once known.
 - Never invent an observation, a measurement, a person or a time. "Not recorded" is a valid entry and a useful one.
 - Never propose a design change in a site report. Point it out and route it to the designer through `project-correspondence`.
 - Do not modify or delete photos. Keep the originals; number copies in the report.

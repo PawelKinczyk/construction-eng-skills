@@ -3,27 +3,39 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Policz elementy w tym modelu IFC i podaj ilości: ściany, wentylacja, pompy. Sprawdź jednostki.",
-      "expected_output": "Runs ifc_report.py summary first and reports the schema, the units from IfcUnitAssignment and the storeys before any count, warning that a millimetre model makes quantities silent orders of magnitude off. Then counts occurrences by type and by storey (not type objects), states that IfcBuildingElementProxy and unassigned elements exist, and takes quantities from the named Qto set with the set and quantity name quoted. Reports elements with no IfcElementQuantity as missing, never as zero, and routes the numbers to cost-estimate or equipment-selection after a check against a schedule. Output in Polish.",
-      "files": ["../project-brief/examples/PROJECT.example.md"]
+      "prompt": "Policz elementy w modelu IFC evals/files/hvac_mm_model.ifc i podaj ilości: ściany, wentylacja, pompy. Sprawdź jednostki.",
+      "expected_output": "Runs ifc_report.py summary first and reports the schema, the units from IfcUnitAssignment and the storeys before any count, warning that a millimetre model makes quantities silent orders of magnitude off. Then counts occurrences by type and by storey (not type objects), states that IfcBuildingElementProxy and unassigned elements exist, and takes quantities from the named Qto set with the set and quantity name quoted. Reports elements with no IfcElementQuantity as missing, never as zero, and routes the numbers to cost-estimate or equipment-selection after a check against a schedule. Output in Polish. Fixture facts: IFC4, length in millimetres; 5 IfcWall with Qto_WallBaseQuantities, 3 IfcDuctSegment, 2 IfcUnitaryEquipment, 2 IfcPump, 3 IfcAirTerminal (one outside any storey), 1 IfcBuildingElementProxy; the pumps have no quantity set (missing, not zero). Cost or selection use is routed to cost-estimate or equipment-selection.",
+      "files": [
+        "evals/files/hvac_mm_model.ifc",
+        "../project-brief/examples/PROJECT.example.md"
+      ]
     },
     {
       "id": 2,
-      "prompt": "Check this IFC against our client's requirements: every pump must have Pset_FlowMoverCommon and a rated power, every air terminal a nominal airflow.",
-      "expected_output": "Asks for the requirement as a list or an IDS file and runs ifc_report.py missing (or ids when ifctester is available), reporting findings grouped by rule as well as by element, including empty values as findings. Says plainly that a project property list is not an IDS result, and that a passed IDS is evidence about the model, not a statement that the design is compliant.",
-      "files": []
+      "prompt": "Check the IFC evals/files/pumps_requirements_model.ifc against our client's requirements (list in evals/files/pumps_requirements.json, IDS in evals/files/pumps_requirements.ids): every pump must have Pset_FlowMoverCommon and a rated power, every air terminal a nominal airflow.",
+      "expected_output": "Asks for the requirement as a list or an IDS file and runs ifc_report.py missing (or ids when ifctester is available), reporting findings grouped by rule as well as by element, including empty values as findings. Says plainly that a project property list is not an IDS result, and that a passed IDS is evidence about the model, not a statement that the design is compliant. Fixture facts: 5 pumps, 3 air terminals. With the property list (type-level sets are read, P-04 and T-03 pass via the type): 5 findings - RatedPower missing/empty on P-02, P-03, P-05 (3), Pset_FlowMoverCommon missing on P-03 (1), NominalAirFlowRate on T-02 (1); the output states which values came from the type. With ifctester: the IDS run reports 3 failed pumps of 5 (P-02, P-03, P-05) and is labelled as an IDS result, separate from the list check. If ifctester is missing, says no IDS validation was run.",
+      "files": [
+        "evals/files/pumps_requirements_model.ifc",
+        "evals/files/pumps_requirements.json",
+        "evals/files/pumps_requirements.ids"
+      ]
     },
     {
       "id": 3,
-      "prompt": "Compare IFC rev B with rev C and list what changed in the design.",
-      "expected_output": "Runs ifc_report.py compare on GUIDs and reports added, removed and changed properties, then warns that GUIDs are stable only when the authoring tool preserves them, so a re-export can show many removals plus additions with no design change - and reports the count of those pairs before calling anything a design change. States that the comparison is evidence about the model and that the design verdict is a project decision.",
-      "files": []
+      "prompt": "Compare IFC rev B (evals/files/clinic_revB.ifc) with rev C (evals/files/clinic_revC.ifc) and list what changed in the design.",
+      "expected_output": "Runs ifc_report.py compare on GUIDs and reports added, removed and changed properties, then warns that GUIDs are stable only when the authoring tool preserves them, so a re-export can show many removals plus additions with no design change - and reports the count of those pairs before calling anything a design change. States that the comparison is evidence about the model and that the design verdict is a project decision. Fixture facts: rev C is an independent export, so all 7 old GUIDs are absent (7 removed, 8 added, 0 changed attributes); the output warns that GUIDs are not stable between independent exports, gives the fallback by class + name + storey as a labelled heuristic (7 pairs, one unmatched addition: pump P-03), and does not present 7 removals as design changes.",
+      "files": [
+        "evals/files/clinic_revB.ifc",
+        "evals/files/clinic_revC.ifc"
+      ]
     },
     {
       "id": 4,
-      "prompt": "Export a schedule of all air terminals with tag, airflow and fire rating as a CSV for the client.",
-      "expected_output": "Runs ifc_report.py schedule with the requested properties, writes a new CSV (never edits the IFC), and states the model file, date, schema and units as the source. Reports empty or missing values as findings instead of leaving blanks, and notes that the schedule describes the model as received, not the current design. Deletes nothing and never claims the schedule is the design.",
-      "files": []
+      "prompt": "Export a schedule of all air terminals from evals/files/terminals_schedule_model.ifc with tag, airflow and fire rating as a CSV for the client.",
+      "expected_output": "Runs ifc_report.py schedule with the requested properties, writes a new CSV (never edits the IFC), and states the model file, date, schema and units as the source. Reports empty or missing values as findings instead of leaving blanks, and notes that the schedule describes the model as received, not the current design. Deletes nothing and never claims the schedule is the design. Fixture facts: 3 air terminals; FireRating sits on the type (EI60 for T-01, empty for T-03, none for T-02); T-03 has no tag. The schedule reads the type-level value and says so; the blank FireRating (T-02, T-03) and the blank Tag (T-03) are reported as findings.",
+      "files": [
+        "evals/files/terminals_schedule_model.ifc"
+      ]
     }
   ]
 }

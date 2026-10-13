@@ -3,15 +3,20 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Przejrzyj dokumenty przetargowe na modernizację instalacji sanitarnej w szpitalu i powiedz, czy składać ofertę. Umowa to wzór zamawiającego.",
-      "expected_output": "Reads PROJECT.md and the jurisdiction file (Polish public procurement regime). Works from the document set, lists the documents not received, and marks conclusions provisional. Builds the scope review with gaps and interfaces, a risk register where every risk cites a document and a clause, an RFI list with one question per row and what each answer changes, a deviations register, and a price build-up using bid_calc.py price. Names the contract clauses that shift risk (liquidated damages cap, warranty, re-measure) without quoting from memory. Recommends bid or no-bid and leaves the decision to the user. Output in Polish.",
-      "files": ["../project-brief/examples/PROJECT.example.md"]
+      "prompt": "Przejrzyj dokumenty przetargowe na modernizację instalacji sanitarnej w szpitalu (fragment SWZ i wzór umowy w załączniku) i powiedz, czy składać ofertę. Jesteśmy wykonawcą.",
+      "expected_output": "Reads the bidder PROJECT.md (role contractor, pl) and the SWZ excerpt. Lists the documents not received (attachments 1 and 2: documentation and bill of quantities) and marks conclusions provisional. Builds a risk register where every risk cites the SWZ chapter or contract clause (lump sum with no indexation, uncapped liquidated damages 0.5% per day, 10% retention for 36 months, 60-month warranty, extra stages without price change), an RFI list with one question per row and what each answer changes, a deviations register, and a price build-up with bid_calc.py price only when a cost base is supplied (otherwise asks for it from cost-estimate). Does not quote clauses beyond the excerpt. Recommends bid or no-bid provisionally and leaves the decision to the user. Output in Polish.",
+      "files": [
+        "evals/files/PROJECT.bidder.md",
+        "evals/files/SWZ-excerpt-hospital.md"
+      ]
     },
     {
       "id": 2,
-      "prompt": "We have 12 risks in the register with probabilities and impacts. What risk allowance should go into the bid?",
-      "expected_output": "Uses bid_calc.py risk on the register, reports the expected value sum, ranks by exposure, and lists the risks without a probability or impact as NOT included in the sum, requiring quantification or a qualification. Warns that an unquantified worry must not be added to the price as a round number, and that a risk the client refuses to answer stays a risk. States that the allowance is not a contingency for unknown scope.",
-      "files": []
+      "prompt": "We have 12 risks in the register (risks.json in the attachment) with probabilities and impacts. What risk allowance should go into the bid?",
+      "expected_output": "Runs bid_calc.py risk on risks.json: expected value sum 966 000 PLN, ranked by exposure, and lists R11 (no probability) and R12 (no impact) as NOT included in the sum, requiring quantification or a qualification. Warns that an unquantified worry must not be added to the price as a round number, and that a risk the client refuses to answer stays a risk. States that the allowance is not a contingency for unknown scope.",
+      "files": [
+        "evals/files/risks.json"
+      ]
     },
     {
       "id": 3,

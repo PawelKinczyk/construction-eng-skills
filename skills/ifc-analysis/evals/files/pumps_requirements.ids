@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ids xmlns="http://standards.buildingsmart.org/IDS" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://standards.buildingsmart.org/IDS http://standards.buildingsmart.org/IDS/1.0/ids.xsd">
+  <info><title>Pump rated power (fictional)</title></info>
+  <specifications>
+    <specification name="Pumps carry a rated power" ifcVersion="IFC4">
+      <applicability minOccurs="1" maxOccurs="unbounded"><entity><name><simpleValue>IFCPUMP</simpleValue></name></entity></applicability>
+      <requirements><property dataType="IFCREAL" cardinality="required"><propertySet><simpleValue>Pset_FlowMoverCommon</simpleValue></propertySet><baseName><simpleValue>RatedPower</simpleValue></baseName></property></requirements>
+    </specification>
+  </specifications>
+</ids>

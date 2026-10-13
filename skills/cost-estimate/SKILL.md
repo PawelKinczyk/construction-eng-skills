@@ -49,6 +49,7 @@ Ask for everything missing in one message. Every assumption goes into the output
    python scripts/estimate_calc.py escalation --value 1250000 --percent 4.5 --periods 2
    python scripts/estimate_calc.py range --value 1250000 --percent 15
    ```
+   Do not run `escalation` with placeholder percentages. Ask for the index and the period first. If the user wants an illustration, label it "illustration, not a forecast, rate to verify".
    The direct cost breakdown (R, M, S), overheads (Kp), profit (Z), purchase costs (Kz), contingency, escalation and VAT are described in `estimate-structure.md`. Apply each markup once, at one level.
 5. **Check.** Compare with:
    - another estimate for the same scope, when one exists (per unit of area, volume or capacity, after normalising the scope);

@@ -12,7 +12,7 @@ Commands:
   summary     schema, units, storeys, element counts by type and by storey
               --file model.ifc [--json]
   quantities  quantities from IfcElementQuantity, per element
-              --file model.ifc --type IfcWall [--storey "Level 1"] [--csv q.csv] [--json]
+              --file model.ifc --type IfcWall [--storey "Level 1"] [--csv q.csv] [--json] [--no-type]
   psets       property sets for one type, optional single set
               --file model.ifc --type IfcPump [--pset Pset_FlowMoverCommon] [--json]
   missing     check a requirement list: psets and properties that must exist and be non-empty
@@ -31,6 +31,10 @@ requirements.json:
   "IfcAirTerminal":     {"psets": ["Pset_AirTerminalCommon"],
                          "properties": ["Pset_AirTerminalCommon.NominalAirFlowRate"]}
 }
+
+Property and quantity sets are read from the occurrence and from its type object
+(IsTypedBy, or IfcRelDefinesByType in IFC2X3); an occurrence value overrides the type value
+and a source column says which (occurrence | type). --no-type switches the type lookup off.
 
 Every report states the schema, the units and the tool version. Quantities always carry the
 quantity set and quantity name they came from.
@@ -124,11 +128,49 @@ def element_label(element):
             or element.is_a())
 
 
-def quantity_rows(element):
-    rows = []
+def defining_objects(element, include_type=True):
+    """Yield (source, definition) for every property/quantity definition of an element.
+
+    Occurrence definitions come from IsDefinedBy (IfcRelDefinesByProperties). Type-level
+    definitions come from the type object's HasPropertySets. IFC4 exposes the type through
+    IsTypedBy; IFC2X3 has no IsTypedBy and lists IfcRelDefinesByType inside IsDefinedBy, so
+    both routes are read and each type object is visited once.
+    """
+    seen = set()
     for rel in getattr(element, "IsDefinedBy", []) or []:
         definition = getattr(rel, "RelatingPropertyDefinition", None)
-        if definition is None or not definition.is_a("IfcElementQuantity"):
+        if definition is not None:
+            yield "occurrence", definition
+        elif include_type and getattr(rel, "RelatingType", None) is not None:
+            type_object = rel.RelatingType
+            if type_object.id() not in seen:
+                seen.add(type_object.id())
+                for definition in getattr(type_object, "HasPropertySets", None) or []:
+                    yield "type", definition
+    if include_type:
+        for rel in getattr(element, "IsTypedBy", []) or []:
+            type_object = getattr(rel, "RelatingType", None)
+            if type_object is None or type_object.id() in seen:
+                continue
+            seen.add(type_object.id())
+            for definition in getattr(type_object, "HasPropertySets", None) or []:
+                yield "type", definition
+
+
+def merge_rows(rows, key):
+    """Occurrence rows override type rows with the same key (set, name)."""
+    merged = {}
+    for row in rows:
+        k = key(row)
+        if k not in merged or (merged[k]["source"] == "type" and row["source"] == "occurrence"):
+            merged[k] = row
+    return list(merged.values())
+
+
+def quantity_rows(element, include_type=True):
+    rows = []
+    for source, definition in defining_objects(element, include_type):
+        if not definition.is_a("IfcElementQuantity"):
             continue
         for quantity in definition.Quantities:
             value = None
@@ -138,15 +180,14 @@ def quantity_rows(element):
                     value = unwrap(getattr(quantity, attribute))
                     break
             rows.append({"set": definition.Name or "(no name)", "quantity": quantity.Name,
-                         "value": value})
-    return rows
+                         "value": value, "source": source})
+    return merge_rows(rows, lambda r: (r["set"], r["quantity"]))
 
 
-def property_rows(element):
+def property_rows(element, include_type=True):
     rows = []
-    for rel in getattr(element, "IsDefinedBy", []) or []:
-        definition = getattr(rel, "RelatingPropertyDefinition", None)
-        if definition is None or not definition.is_a("IfcPropertySet"):
+    for source, definition in defining_objects(element, include_type):
+        if not definition.is_a("IfcPropertySet"):
             continue
         for prop in definition.HasProperties:
             value = None
@@ -155,8 +196,8 @@ def property_rows(element):
             elif hasattr(prop, "EnumerationValues") and prop.EnumerationValues:
                 value = ",".join(str(unwrap(v)) for v in prop.EnumerationValues)
             rows.append({"set": definition.Name or "(no name)", "property": prop.Name,
-                         "value": value})
-    return rows
+                         "value": value, "source": source})
+    return merge_rows(rows, lambda r: (r["set"], r["property"]))
 
 
 def types_of_element(element):
@@ -215,15 +256,16 @@ def cmd_quantities(args):
     elements = select(model, args.type, args.storey)
     rows = []
     for element in elements:
-        for row in quantity_rows(element):
+        for row in quantity_rows(element, not args.no_type):
             rows.append({"guid": element.GlobalId, "name": element_label(element),
                          "storey": storey_of(element), "set": row["set"],
-                         "quantity": row["quantity"], "value": row["value"]})
-    missing = [e for e in elements if not quantity_rows(e)]
+                         "quantity": row["quantity"], "value": row["value"],
+                         "source": row["source"]})
+    missing = [e for e in elements if not quantity_rows(e, not args.no_type)]
     if args.csv:
         with open(args.csv, "w", encoding="utf-8", newline="") as fh:
             writer = csv.DictWriter(fh, fieldnames=["guid", "name", "storey", "set", "quantity",
-                                                    "value"])
+                                                    "value", "source"])
             writer.writeheader()
             writer.writerows(rows)
         print(f"wrote {args.csv}")
@@ -232,10 +274,10 @@ def cmd_quantities(args):
                           "elements_without_quantities": len(missing)},
                          ensure_ascii=False, indent=2))
         return
-    print(f"{'guid':<24} {'storey':<16} {'set':<28} {'quantity':<20} value")
+    print(f"{'guid':<24} {'storey':<16} {'set':<28} {'quantity':<20} {'source':<11} value")
     for row in rows:
         print(f"{row['guid'][:23]:<24} {str(row['storey'])[:15]:<16} {row['set'][:27]:<28} "
-              f"{row['quantity'][:19]:<20} {row['value']}")
+              f"{row['quantity'][:19]:<20} {row['source']:<11} {row['value']}")
     print(f"\n{len(elements)} element(s) of {args.type}, {len(rows)} quantity value(s)")
     if missing:
         print(f"WARNING: {len(missing)} element(s) have no IfcElementQuantity at all. Their "
@@ -249,7 +291,7 @@ def cmd_psets(args):
     elements = select(model, args.type)
     rows = []
     for element in elements:
-        for row in property_rows(element):
+        for row in property_rows(element, not args.no_type):
             if args.pset and row["set"] != args.pset:
                 continue
             rows.append({"guid": element.GlobalId, "name": element_label(element),
@@ -258,13 +300,15 @@ def cmd_psets(args):
         print(json.dumps({"type": args.type, "pset": args.pset, "rows": rows},
                          ensure_ascii=False, indent=2))
         return
-    print(f"{'guid':<24} {'set':<26} {'property':<28} value")
+    print(f"{'guid':<24} {'set':<26} {'property':<28} {'source':<11} value")
     for row in rows:
         value = "" if row["value"] is None else str(row["value"])
         flag = "   <-- EMPTY" if value == "" else ""
         print(f"{row['guid'][:23]:<24} {row['set'][:25]:<26} {row['property'][:27]:<28} "
-              f"{value[:40]}{flag}")
+              f"{row['source']:<11} {value[:40]}{flag}")
     print(f"\n{len(elements)} element(s) of {args.type}, {len(rows)} property value(s)")
+    print("source = occurrence (set on the element) or type (inherited from the type object; "
+          "an occurrence value overrides it). --no-type reads occurrences only.")
     print("Empty values are reported on purpose: they break schedules, IDS checks and takeoff.")
 
 
@@ -280,8 +324,9 @@ def cmd_missing(args):
                              "problem": "type not found in the model", "rule": type_name})
             continue
         for element in elements:
-            psets = {row["set"]: row for row in property_rows(element)}
-            all_props = {(row["set"], row["property"]): row["value"] for row in property_rows(element)}
+            rows = property_rows(element, not args.no_type)
+            psets = {row["set"]: row for row in rows}
+            all_props = {(row["set"], row["property"]): row["value"] for row in rows}
             for pset in rules.get("psets", []):
                 if pset not in psets:
                     findings.append({"type": type_name, "guid": element.GlobalId,
@@ -315,20 +360,29 @@ def cmd_missing(args):
         print(f"  {rule:<60} {count}")
     print("\nGrouped by rule as well as by element: the modeller fixes the rule, not the "
           "single element.")
+    print("Property sets are read from the occurrence and, unless --no-type, from the type "
+          "object (occurrence overrides type).")
     print("This is a project-specific check against the supplied list, not an IDS result.")
 
 
 def cmd_schedule(args):
-    _ifcopenshell, model = open_model(args.file)
+    ifcopenshell, model = open_model(args.file)
+    print(f"Source: {Path(args.file).name}   schema {model.schema}   units "
+          + (", ".join(f"{k}={v}" for k, v in units_of(model).items()) or "NOT DECLARED")
+          + f"   ifcopenshell {version(ifcopenshell)}")
     props = [p.strip() for p in args.props.split(",")] if args.props else []
     elements = select(model, args.type, args.storey)
     columns = ["guid", "type", "storey", "name", "tag"] + props
     rows = []
+    from_type = 0
     for element in elements:
         row = {"guid": element.GlobalId, "type": element.is_a(), "storey": storey_of(element),
                "name": getattr(element, "Name", None) or "",
                "tag": getattr(element, "Tag", None) or ""}
-        values = {(r["set"], r["property"]): r["value"] for r in property_rows(element)}
+        prop_list = property_rows(element, not args.no_type)
+        values = {(r["set"], r["property"]): r["value"] for r in prop_list}
+        from_type += sum(1 for r in prop_list if r["source"] == "type"
+                         and (r["set"] + "." + r["property"] in props or r["property"] in props))
         for path in props:
             if "." in path:
                 pset_name, prop_name = path.split(".", 1)
@@ -354,11 +408,19 @@ def cmd_schedule(args):
     print(f"\n{len(rows)} element(s) of {args.type}"
           + (f" on {args.storey}" if args.storey else "")
           + ". Source: the model as received, not the current design.")
+    if from_type:
+        print(f"{from_type} requested value(s) were read from the type object (not set on the "
+              "occurrence). Use --no-type to read occurrences only.")
+
+
+def heuristic_key(element):
+    return (element.is_a(), str(getattr(element, "Name", None) or ""), storey_of(element))
 
 
 def cmd_compare(args):
     _ifcopenshell, old = open_model(args.old)
     _ifcopenshell2, new = open_model(args.new)
+
     def index(model):
         return {e.GlobalId: e for e in model.by_type("IfcProduct")}
     old_index, new_index = index(old), index(new)
@@ -376,16 +438,48 @@ def cmd_compare(args):
             diffs["type"] = [before.is_a(), after.is_a()]
         if diffs:
             changed.append({"guid": guid, "name": getattr(after, "Name", None), **diffs})
+    # heuristic fallback: pair removed and added elements with the same class + name + storey
+    pool = defaultdict(list)
+    for guid in added:
+        pool[heuristic_key(new_index[guid])].append(guid)
+    pairs = 0
+    unmatched_removed = []
+    for guid in removed:
+        bucket = pool.get(heuristic_key(old_index[guid]))
+        if bucket:
+            bucket.pop()
+            pairs += 1
+        else:
+            unmatched_removed.append(guid)
+    unmatched_added = [g for bucket in pool.values() for g in bucket]
+    ratio = len(removed) / len(old_index) if old_index else 0.0
     payload = {"old": Path(args.old).name, "new": Path(args.new).name,
                "added": len(added), "removed": len(removed), "changed": changed,
-               "old_products": len(old_index), "new_products": len(new_index)}
+               "changed_label": "changed attributes (Name/Tag/ObjectType/PredefinedType); "
+                                "property sets are not compared",
+               "old_products": len(old_index), "new_products": len(new_index),
+               "removed_ratio": round(ratio, 3), "guids_look_regenerated": ratio > 0.5,
+               "heuristic_pairs_class_name_storey": pairs,
+               "added_after_heuristic": len(unmatched_added),
+               "removed_after_heuristic": len(unmatched_removed)}
     if args.json:
         print(json.dumps(payload, ensure_ascii=False, indent=2))
         return
     print(f"== IFC comparison ==  {payload['old']} -> {payload['new']}")
     print(f"products: {payload['old_products']} -> {payload['new_products']}")
     print(f"added: {payload['added']}   removed: {payload['removed']}   "
-          f"changed properties: {len(changed)}")
+          f"changed attributes (Name/Tag/ObjectType/PredefinedType; property sets are NOT "
+          f"compared): {len(changed)}")
+    if ratio > 0.5:
+        print(f"\nWARNING: {len(removed)} of {len(old_index)} old elements ({ratio:.0%}) have no "
+              "GUID in the new file. GUIDs are not stable between independent exports, so the "
+              "GUID comparison above is not usable as a list of design changes.")
+    print(f"\nremoved+added by GUID: {len(removed)} removed, {len(added)} added")
+    print("HEURISTIC, not proof - match by class + name + storey:")
+    print(f"  {pairs} removed/added pair(s) share class, name and storey (likely the same "
+          "element re-exported)")
+    print(f"  {len(unmatched_removed)} removed and {len(unmatched_added)} added element(s) "
+          "remain without a match")
     for row in changed[:20]:
         detail = "; ".join(f"{k}: {v[0]} -> {v[1]}" for k, v in row.items()
                            if k not in ("guid", "name"))
@@ -394,7 +488,8 @@ def cmd_compare(args):
         print(f"  ... {len(changed) - 20} more")
     print("\nGUIDs are stable only when the authoring tool preserves them. A re-export can show "
           "many removals plus additions with no design change. Check the removed/added pairs "
-          "before reporting design changes.")
+          "before reporting design changes. The comparison is evidence about the model; whether "
+          "a change is a design change is a project decision.")
 
 
 def cmd_ids(args):
@@ -403,31 +498,49 @@ def cmd_ids(args):
     except ImportError:
         raise DependencyError("ifctester is not installed. It comes with the IfcOpenShell "
                               "ecosystem (pip install ifctester). Without it, use --require "
-                              "with a project property list, and say that no IDS was run.")
-    _ifcopenshell, model = open_model(args.file)
-    spec = ids.open(str(args.spec))
+                              "with a project property list, and say that no IDS validation "
+                              "was run.")
+    ifcopenshell, model = open_model(args.file)
+    try:
+        spec = ids.open(str(args.spec))
+    except Exception as exc:  # invalid or unreadable IDS file
+        raise ValueError(f"cannot read IDS file {args.spec}: {type(exc).__name__}: "
+                         f"{str(exc).splitlines()[0] if str(exc) else ''}")
     spec.validate(model)
+    json_report = reporter.Json(spec)
+    json_report.report()
+    raw = json_report.to_string()
+    data = raw if isinstance(raw, dict) else json.loads(raw)
     payload = {"file": Path(args.file).name, "spec": Path(args.spec).name,
+               "schema": model.schema,
+               "tool": f"ifcopenshell {version(ifcopenshell)}, ifctester "
+                       f"{getattr(sys.modules.get('ifctester'), '__version__', 'unknown')}",
                "specifications": []}
-    for spec_item in spec.specifications:
-        results = {"name": spec_item.name, "passed": 0, "failed": 0, "elements": []}
-        for result in spec_item.results:
-            total = len(result.applicable_entities)
-            if result.status:
-                results["passed"] += 1
-            else:
-                results["failed"] += 1
-                results["elements"].append({"requirement": str(result.requirement),
-                                            "applicable": total, "reason": result.reason})
-        payload["specifications"].append(results)
+    for item in data.get("specifications", []):
+        failures = []
+        for requirement in item.get("requirements", []):
+            for entity in requirement.get("failed_entities", []):
+                failures.append({"requirement": requirement.get("label") or
+                                 requirement.get("description"),
+                                 "element": entity.get("name") or entity.get("global_id"),
+                                 "class": entity.get("class"),
+                                 "guid": entity.get("global_id"),
+                                 "reason": entity.get("reason")})
+        payload["specifications"].append({
+            "name": item.get("name"), "status": bool(item.get("status")),
+            "applicable": item.get("total_applicable"),
+            "passed": item.get("total_applicable_pass"),
+            "failed": item.get("total_applicable_fail"), "failures": failures})
     if args.json:
         print(json.dumps(payload, ensure_ascii=False, indent=2))
         return
+    print(f"== IDS validation ==  {payload['file']} against {payload['spec']}   "
+          f"schema {payload['schema']}   {payload['tool']}")
     for item in payload["specifications"]:
-        print(f"[{'PASS' if not item['failed'] else 'FAIL'}] {item['name']}  "
-              f"passed {item['passed']}, failed {item['failed']}")
-        for element in item["elements"]:
-            print(f"    {element['requirement'][:70]}  ({element['applicable']} element(s))")
+        print(f"[{'PASS' if item['status'] else 'FAIL'}] {item['name']}  applicable "
+              f"{item['applicable']}, passed {item['passed']}, failed {item['failed']}")
+        for f in item["failures"]:
+            print(f"    {str(f['element'])[:24]:<24} {f['requirement']}: {f['reason']}")
     print("\nAn IDS pass means the model meets the specification as written. It is not a "
           "statement that the design is compliant.")
 
@@ -441,6 +554,9 @@ def build_parser():
         s.set_defaults(func=func)
         s.add_argument("--file")
         s.add_argument("--json", action="store_true")
+        if name in ("quantities", "psets", "missing", "schedule"):
+            s.add_argument("--no-type", action="store_true",
+                           help="read occurrence property/quantity sets only, not type-level ones")
         return s
 
     add("summary", cmd_summary)

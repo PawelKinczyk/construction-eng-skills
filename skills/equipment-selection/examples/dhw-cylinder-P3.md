@@ -15,21 +15,21 @@ Zasobnik c.w.u. dla 10 mieszkań (przyjęto 25 osób) z kotłem o mocy c.w.u. 30
 | Temperatura wody zimnej | 10 | °C | założenie dla lokalizacji |
 | Moc ciągła kotła na c.w.u. | 30 | kW | dane kotła (przykład) |
 | Objętość wody o temp. 60 °C na 400 l / 45 °C | 280 | l | `plumbing_calc.py dhw-mix --v-mix 400 --t-mix 45 --t-hot 60 --t-cold 10` |
-| Woda podgrzana w czasie rozbioru | 129 | l | `plumbing_calc.py dhw-store --continuous-kw 30 --draw-time-min 15` |
-| Pojemność zasobnika (minimum) | 151 | l | `plumbing_calc.py dhw-store` (280 − 129) |
+| Woda podgrzana w czasie rozbioru | 129 | l | `plumbing_calc.py dhw-store --v-peak 400 --t-store 60 --t-cold 10 --t-mix 45 --continuous-kw 30 --draw-time-min 15` |
+| Pojemność zasobnika (minimum) | 151 | l | ten sam przebieg `dhw-store` (280 − 129) |
 
 ## 3. Obliczenia
 | Pozycja | Wartość | Jednostka | Źródło / komentarz |
 |---|---|---|---|
-| Energia rozbioru | 8,75 | kWh | 400 l × 4,18 × (45 − 10) / 3600 |
-| Średnia moc rozbioru | 35 | kW | wyżej, w 15 min (`dhw-demand`) |
+| Energia rozbioru | 16,26 | kWh | 400 l × 4,18 × (45 − 10) / 3600; `plumbing_calc.py dhw-demand --volume-l 400 --t-hot 45 --t-cold 10 --draw-time-min 15` |
+| Średnia moc rozbioru | 65 | kW | 16,26 kWh / 0,25 h (ten sam przebieg `dhw-demand`) |
 | Moc szczytowa chwilowa | do weryfikacji | kW | z profilu rozbioru, nie z wartości średniej |
 | Cyrkulacja – strata ciepła pętli | 350 | W | oszacowanie: 60 m rury, izolacja 20 mm |
 | Cyrkulacja – przepływ przy ΔT 5 K | 0,017 (60) | l/s (l/h) | `plumbing_calc.py dhw-circ --heat-loss-w 350 --dt 5` |
 | Woda zimna – przepływ obliczeniowy | 2,23 | l/s | `plumbing_calc.py peak-flow --fixture basin:20 --fixture wc:12 --fixture shower:10 -f 0.5` |
-| Kanalizacja – przepływ obliczeniowy | 3,08 | l/s | `plumbing_calc.py stack --du 38 --k 0.5 --capacity 5.8` |
+| Kanalizacja – przepływ obliczeniowy | 3,08 | l/s | `plumbing_calc.py stack --du 38 --k 0.5`; przepustowość pionu DN110 do weryfikacji z normą lub od producenta rur |
 
-Uwaga: dobór 200 l wynika z 151 l + zapas na strefę zmieszania w zasobniku. Zapasu procentowego nie dodano: objętość wynika wprost z profilu rozbioru i mocy kotła. Moc średnia 35 kW jest większa od mocy ciągłej kotła 30 kW, dlatego zasobnik pokrywa różnicę 5 kW przez 15 min; przy dłuższym szczycie trzeba zwiększyć moc kotła, nie pojemność.
+Uwaga: dobór 200 l wynika z 151 l + zapas na strefę zmieszania w zasobniku. Zapasu procentowego nie dodano: objętość wynika wprost z profilu rozbioru i mocy kotła. Moc średnia 65 kW jest większa od mocy ciągłej kotła 30 kW, dlatego zasobnik pokrywa deficyt 35 kW przez 15 min (129 l odpowiada mocy kotła, 151 l zasobnik); przy dłuższym szczycie trzeba zwiększyć moc kotła, nie pojemność.
 
 ## 4. Wymagania
 | Wymaganie | Wartość | Źródło |
@@ -65,7 +65,7 @@ Uwaga: dobór 200 l wynika z 151 l + zapas na strefę zmieszania w zasobniku. Za
 - Profil rozbioru (400 l / 45 °C / 15 min) przyjęty przez projektanta jako szczyt poranny; do potwierdzenia.
 - Przepływy jednostkowe przyborów przyjęte jako typowe (EN 806-3) i wymagają potwierdzenia.
 - Szybkość odbioru c.w.u. w zasobniku nie jest jeszcze znana, stąd „do weryfikacji" dla mocy szczytowej.
-- Suma jednostek wypływowych kanalizacji 38 DU i współczynnik K = 0,5 przyjęte z tabeli EN 12056-2; do potwierdzenia z normą.
+- Suma jednostek wypływowych kanalizacji 38 DU i współczynnik K = 0,5 przyjęte z tabeli EN 12056-2; do potwierdzenia z normą. Przepustowość pionu DN110 nie jest podana: tabela jest w licencjonowanej normie, brak jej w repozytorium; sprawdzenie pionu pozostaje „do weryfikacji".
 
 ## 8. Źródła
 - Rozporządzenie Komisji (UE) nr 814/2013 (podgrzewacze wody i zasobniki), eur-lex.europa.eu.
@@ -79,3 +79,4 @@ Uwaga: dobór 200 l wynika z 151 l + zapas na strefę zmieszania w zasobniku. Za
 - [ ] Przepisy krajowe: temperatura c.w.u. i zasady ochrony przed Legionellą.
 - [ ] Zabezpieczenie przed przepływem zwrotnym (kategoria płynu).
 - [ ] Suma DU i współczynnik K z EN 12056-2 oraz pozostałe przybory na pionach.
+- [ ] Przepustowość pionu DN110 (norma lub producent rur) i uruchomienie `stack --capacity`.

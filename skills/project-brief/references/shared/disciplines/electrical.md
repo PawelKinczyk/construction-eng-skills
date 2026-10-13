@@ -185,3 +185,7 @@ Checklist seed for `code-compliance`. Each topic needs the jurisdiction's legal 
 
 See `eu.md` "Standards map by topic" for EN and HD numbers (HD 60364 series and its parts, EN 61439 series, EN 62305 series, EN 12464-1, EN 1838, EN 50172, EN 50575).
 Country rules for voltage drop, diversity, RCD use and emergency lighting are in the jurisdiction files. In Poland: WT § 180-187 and PN-HD 60364; verify the paragraph numbers against the ISAP text before citing.
+
+## Cable ampacity
+
+Never take cable current-carrying capacity (ampacity) from memory. The cable section stays open until a table value is supplied by the user or a named source (standard table, manufacturer data sheet), with the installation method and the correction factors (temperature, grouping, thermal insulation) stated. Until then, give only the minimum section from the voltage-drop and protective-device checks and mark the Ib <= In <= Iz check "to verify".

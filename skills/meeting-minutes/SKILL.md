@@ -77,6 +77,6 @@ Also output, as separate files when the user wants them: the updated action regi
 - Never invent an attendee, a decision, a deadline or a number.
 - An action is assigned to one owner. Shared ownership means no owner.
 - Deadlines are absolute dates. "ASAP" and "next week" are not deadlines.
-- The chair approves the minutes. Say they are a draft until that happens.
+- The chair approves the minutes. Say they are a draft until that happens. Once approved, minutes change only by a numbered revision (for example rev. 1) sent to everyone on the distribution; never edit them silently.
 - Keep the registers in files, not only in the minutes: they are what the next meeting runs on.
 - Personal data: minutes list attendees and their organisations. Do not add personal details beyond the role the person holds on the project.

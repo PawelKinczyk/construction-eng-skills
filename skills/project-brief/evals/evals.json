@@ -9,15 +9,19 @@
     },
     {
       "id": 2,
-      "prompt": "Update the project brief: in yesterday's meeting the client decided to switch from gas boilers to air-to-water heat pumps, and the electrical contractor is now ElectroBuild Ltd.",
-      "expected_output": "Update mode on existing PROJECT.md. Adds a Decisions row with date and source 'meeting', adds the contractor to People, does not delete existing content, strikes through superseded facts, sets last_updated, reports changes in at most 5 lines.",
-      "files": ["examples/PROJECT.example.md"]
+      "prompt": "Update the project brief: in yesterday's meeting the client decided to switch from MPEC district heating to air-to-water heat pumps, and the electrical contractor is now ElectroBuild Ltd.",
+      "expected_output": "Update mode on existing PROJECT.md. Adds a Decisions row with date and source 'meeting', adds the contractor to People, does not delete existing content, strikes through the superseded scope line 'ogrzewanie z węzła cieplnego MPEC' and the related open question about MPEC connection conditions, sets last_updated, reports changes in at most 5 lines.",
+      "files": [
+        "examples/PROJECT.example.md"
+      ]
     },
     {
       "id": 3,
       "prompt": "What is missing in our project brief before I start equipment selection?",
       "expected_output": "Review mode. Lists gaps ordered by impact on equipment selection (e.g. heat supply connection data, acoustic requirements), flags open questions, asks the top questions as one round. Does not rewrite the file.",
-      "files": ["examples/PROJECT.example.md"]
+      "files": [
+        "examples/PROJECT.example.md"
+      ]
     }
   ]
 }

@@ -1,0 +1,5 @@
+{
+  "IfcPump": {"psets": ["Pset_FlowMoverCommon"],
+               "properties": ["Pset_FlowMoverCommon.RatedPower"]},
+  "IfcAirTerminal": {"properties": ["Pset_AirTerminalCommon.NominalAirFlowRate"]}
+}
