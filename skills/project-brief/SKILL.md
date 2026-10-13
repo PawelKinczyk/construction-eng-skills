@@ -48,6 +48,8 @@ Interview rules:
 - Stop after round 1 if the user wants a quick start. Rounds 2–6 can follow later.
 - If the user pastes a long text (email, meeting notes, tender summary), extract facts from it first and ask only about gaps.
 
+A trade term can span several `disciplines` values (for example the Polish "branża sanitarna"). Check the jurisdiction file for the mapping. When a term is wider than one value, ask which installations are in scope instead of choosing one.
+
 Allowed values for the YAML block are in the template comments. If the jurisdiction has no file in `references/shared/jurisdictions/`, write the country code anyway and tell the user that country-specific references are missing.
 
 ## 3. Work

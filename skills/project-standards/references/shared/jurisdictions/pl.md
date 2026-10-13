@@ -125,4 +125,5 @@ Never invent a rate. If the user gives no price source, give the structure, mark
 - Currency: PLN (zł), net and gross stated explicitly.
 - Document language: Polish for permits, contracts, site documents.
 - Drawing conventions: PN-EN ISO 7200 title blocks are common; projects often use their own.
+- Trade names: "branża sanitarna" is a wider group than the `disciplines` values. It usually covers water supply and drainage (`plumbing`), heating and ventilation or air conditioning (`hvac`), and often gas. "Branża elektryczna" maps to `electrical`; "ppoż." to `fire`. Never pick one value for "sanitarna": ask which installations the engineer designs.
 - Letters: place and date top right, addressee, "Dotyczy:" subject line, signature with name and function.
